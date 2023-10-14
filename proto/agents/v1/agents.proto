@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package agents.v1;
+
+service AgentService {
+  rpc Interact(stream AgentAction) returns (stream Event) {}
+}
+
+message Agent {
+  enum AgentType {
+    AGENT_TYPE_UNSPECIFIED = 0;
+    AGENT_TYPE_HUMAN = 1;
+    AGENT_TYPE_BOT = 2;
+  }
+  AgentType type = 1;
+  string id = 2;
+
+  string name = 3;
+}
+
+// Discriminated union of all events.
+message Event {
+  oneof event {
+    // A message was sent by an agent.
+    Message message = 1;
+    InteractionZoneUpdate interaction_zone_update = 2;
+  }
+}
+
+// InteractionZoneUpdate is sent by the client to update the interaction zone.
+message InteractionZoneUpdate {
+  repeated Agent agents = 1;
+}
+
+// Discriminated union of all agent actions.
+message AgentAction {
+  oneof action {
+    // A message was sent by an agent.
+    Message message = 1;
+  }
+}
+
+// A global chat message sent by an agent.
+message Message {
+  // The agent that sent the message.
+  Agent agent = 1;
+  string content = 2;
+}
+
