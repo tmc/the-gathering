@@ -1,0 +1,13 @@
+FROM ubuntu:latest
+
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y chromium-browser ffmpeg pulseaudio v4l2loopback-dkms v4l2loopback-utils && \
+    apt-get clean
+
+# Add entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+

@@ -1,0 +1,14 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/tmc/the-gathering/internal/gen
+plugins:
+  - plugin: go
+    out: ../internal/gen
+  - plugin: es
+    out: ../packages/the-gathering
+    opt: target=ts
+  - plugin: connect-es
+    out: ../packages/the-gathering
+    opt: target=ts

@@ -3,7 +3,19 @@ syntax = "proto3";
 package agents.v1;
 
 service AgentService {
+  // Interact is a bidirectional stream of agent actions and events.
   rpc Interact(stream AgentAction) returns (stream Event) {}
+
+  // Speak Sends a stream of words to the agent.
+  rpc Speak(stream Word) returns (SpeakResponse) {}
+}
+
+// Words is a stream of words.
+message Word {
+  string word = 2;
+}
+
+message SpeakResponse {
 }
 
 message Agent {
