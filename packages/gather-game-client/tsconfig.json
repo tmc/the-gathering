@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base",
+  "compilerOptions": {
+    "outDir": "dist",
+    "paths": { "@gathertown/gather-game-common/dist/*": ["../gather-game-common/*"] }
+  },
+  "include": ["src/**/*"],
+  "references": [{ "path": "../gather-game-common" }]
+}

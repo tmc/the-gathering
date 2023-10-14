@@ -1,0 +1,33 @@
+{
+  "name": "@gathertown/gather-game-client",
+  "version": "43.0.1",
+  "description": "",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "prebuild": "node -p \"'export const GAME_CLIENT_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
+    "build": "npm run build:compile",
+    "build:compile": "tsc -b",
+    "lint": "gather lint",
+    "docs": "tsc -b && typedoc src/index.ts",
+    "upload-docs": "tsc -b && typedoc src/index.ts && aws s3 sync docs s3://gather-game-client-docs/"
+  },
+  "author": "Gather team",
+  "license": "ISC",
+  "dependencies": {
+    "@gathertown/gather-game-common": "~35.0.1",
+    "axios": "~0.26.0",
+    "buffer": "~6.0.3",
+    "lodash": "~4.17.21",
+    "ramda": "^0.28.0",
+    "uuid": "~9.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "~4.14.190",
+    "@types/node": "~16.18.23",
+    "@types/ramda": "~0.28.11",
+    "@types/uuid": "~8.3.4",
+    "minami": "~1.2.3",
+    "typedoc": "~0.24.7",
+    "typescript": "~5.0.4"
+  }
+}

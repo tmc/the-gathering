@@ -1,0 +1,30 @@
+{
+  "name": "@gathertown/gather-game-common",
+  "version": "35.0.1",
+  "description": "",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "build": "npm run build:compile",
+    "build:compile": "tsc -b",
+    "lint": "gather lint",
+    "protoc": "protoc --proto_path src --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated_DO_NOT_TOUCH --ts_proto_opt=esModuleInterop=true --ts_proto_opt=oneof=unions --ts_proto_opt=snakeToCamel=false --ts_proto_opt=unrecognizedEnum=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=initializeFieldsAsUndefined=false --ts_proto_opt=outputPartialMethods=false --experimental_allow_proto3_optional events.proto && echo export const protobufWriterLibrary = _m0 >> src/generated_DO_NOT_TOUCH/events.ts"
+  },
+  "author": "Gather team",
+  "license": "ISC",
+  "dependencies": {
+    "buffer": "~6.0.3",
+    "fishery": "~2.2.2",
+    "lodash": "~4.17.21",
+    "long": "~4.0.0",
+    "nanoid": "~3.3.1",
+    "protobufjs": "~7.2.4",
+    "ts-proto": "~1.139.0"
+  },
+  "devDependencies": {
+    "@protobuf-ts/protoc": "~2.8.1",
+    "@types/lodash": "~4.14.190",
+    "@types/long": "~4.0.0",
+    "@types/node": "~16.18.23",
+    "typescript": "~5.0.4"
+  }
+}

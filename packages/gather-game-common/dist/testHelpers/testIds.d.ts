@@ -1,0 +1,10 @@
+export declare const MY_TEST_PLAYER_ID = "myTestPlayerId";
+export declare const ANOTHER_TEST_PLAYER_ID = "anotherTestPlayer";
+export declare const YET_ANOTHER_TEST_PLAYER_ID = "yetAnotherTestPlayer";
+export declare const RECORDING_BOT_ID = "recordingBot";
+export declare const TEST_SPACE_ID = "myTestSpace";
+export declare const TEST_MAP_ID = "myTestMap";
+export declare const OTHER_TEST_MAP_ID = "myOtherTestMap";
+export declare const YET_ANOTHER_TEST_MAP_ID = "yetAnotherTestMap";
+export declare const TEST_NOOK_ID = "testNook";
+export declare const TEST_RECORDING_ID = "testEgressId";
