@@ -25,7 +25,6 @@ async def main():
 
     initial_calls = [
         AgentAction(message=Message(
-            agent_id=AGENT_ID,
             content="Hello, world!",
         )),
     ]
