@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package agents.v1;
+
+service AgentAudioVideoService {
+  // Speak is a stream of words to be spoken by the agent.
+  rpc Speak(stream WordEvent) returns (SpeakResponse) {}
+  // TODO set profile? stream video content?
+}
+
+// Words is a stream of words.
+message WordEvent {
+  string agent_id = 1;
+  string word = 2;
+}
+
+// Placeholder response
+message SpeakResponse {
+}
+

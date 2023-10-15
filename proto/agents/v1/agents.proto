@@ -6,28 +6,11 @@ service AgentService {
   // Interact is a bidirectional stream of agent actions and events.
   rpc Interact(stream PlayerEvent) returns (stream GameEvent) {}
   rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {}
+  rpc ProvisionAgent(ProvisionAgentRequest) returns (ProvisionAgentResponse) {}
 }
 
 message HealthCheckRequest { }
-
 message HealthCheckResponse { }
-
-service AgentAudioVideoService {
-  // Speak is a stream of words to be spoken by the agent.
-  rpc Speak(stream WordEvent) returns (SpeakResponse) {}
-  // TODO set profile? stream video content?
-}
-
-
-// Words is a stream of words.
-message WordEvent {
-  string agent_id = 1;
-  string word = 2;
-}
-
-// Placeholder response
-message SpeakResponse {
-}
 
 message Player {
   enum AgentType {
@@ -68,4 +51,12 @@ message NearbyPlayers {
 // A global chat message sent by an agent.
 message Message {
   string content = 2;
+}
+
+message ProvisionAgentRequest {
+  Player agent = 1;
+}
+
+message ProvisionAgentResponse {
+  Player agent = 1;
 }

@@ -6,11 +6,15 @@ managed:
 plugins:
   - plugin: go
     out: ../internal/gen
+    opt: paths=source_relative
+  - plugin: connect-go
+    out: ../internal/gen
+    opt: paths=source_relative
   - plugin: es
-    out: ../packages/the-gathering
+    out: ../ts/packages/the-gathering
     opt: target=ts
   - plugin: connect-es
-    out: ../packages/the-gathering
+    out: ../ts/packages/the-gathering
     opt: target=ts
   - plugin: python_betterproto
     out: ../py/pygathering/pb
