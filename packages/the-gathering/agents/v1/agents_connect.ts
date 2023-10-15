@@ -19,14 +19,23 @@ export const AgentService = {
      */
     interact: {
       name: "Interact",
-      I: AgentAction,
-      O: Event,
+      I: Event,
+      O: AgentAction,
       kind: MethodKind.BiDiStreaming,
     },
+  }
+} as const;
+
+/**
+ * @generated from service agents.v1.AgentAudioVideoService
+ */
+export const AgentAudioVideoService = {
+  typeName: "agents.v1.AgentAudioVideoService",
+  methods: {
     /**
-     * Speak Sends a stream of words to the agent.
+     * Speak is a stream of words to be spoken by the agent.
      *
-     * @generated from rpc agents.v1.AgentService.Speak
+     * @generated from rpc agents.v1.AgentAudioVideoService.Speak
      */
     speak: {
       name: "Speak",

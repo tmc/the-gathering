@@ -4,10 +4,13 @@ package agents.v1;
 
 service AgentService {
   // Interact is a bidirectional stream of agent actions and events.
-  rpc Interact(stream AgentAction) returns (stream Event) {}
+  rpc Interact(stream Event) returns (stream AgentAction) {}
+}
 
-  // Speak Sends a stream of words to the agent.
+service AgentAudioVideoService {
+  // Speak is a stream of words to be spoken by the agent.
   rpc Speak(stream Word) returns (SpeakResponse) {}
+  // TODO set profile? stream video content?
 }
 
 // Words is a stream of words.

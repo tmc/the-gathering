@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package agents.v1;
+
+service GameService {
+  rpc JoinGame(JoinGameRequest) returns (JoinGameResponse) {}
+}
+
+message JoinGameRequest {
+  // e.g. "FCoCBXMZr7OEGG3m/forest-office"
+  string game_id = 1;
+  // e.g. "Room1"
+  optional string room_id = 2;
+}
+
+message JoinGameResponse {
+  string session_id = 1;
+}
+

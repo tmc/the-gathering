@@ -12,3 +12,7 @@ plugins:
   - plugin: connect-es
     out: ../packages/the-gathering
     opt: target=ts
+  - plugin: buf.build/protocolbuffers/python
+    out: ../py/pygathering/pb
+  - plugin: buf.build/grpc/python:v1.58.1
+    out: ../py/pygathering/pb
