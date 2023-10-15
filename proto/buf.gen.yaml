@@ -12,9 +12,9 @@ plugins:
   - plugin: connect-es
     out: ../packages/the-gathering
     opt: target=ts
-  - plugin: buf.build/protocolbuffers/python
+  - plugin: python_betterproto
     out: ../py/pygathering/pb
-  - plugin: buf.build/grpc/python:v1.58.1
-    out: ../py/pygathering/pb
-  - plugin: buf.build/protocolbuffers/pyi:v24.4
-    out: ../py/pygathering/pb
+  # - plugin: buf.build/grpc/python:v1.58.1
+  #   out: ../py/pygathering/pb
+  # - plugin: buf.build/protocolbuffers/pyi:v24.4
+  #   out: ../py/pygathering/pb
