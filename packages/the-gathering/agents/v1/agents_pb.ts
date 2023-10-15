@@ -9,43 +9,51 @@ import { Message as Message$1, proto3 } from "@bufbuild/protobuf";
 /**
  * Words is a stream of words.
  *
- * @generated from message agents.v1.Word
+ * @generated from message agents.v1.WordEvent
  */
-export class Word extends Message$1<Word> {
+export class WordEvent extends Message$1<WordEvent> {
+  /**
+   * @generated from field: string agent_id = 1;
+   */
+  agentId = "";
+
   /**
    * @generated from field: string word = 2;
    */
   word = "";
 
-  constructor(data?: PartialMessage<Word>) {
+  constructor(data?: PartialMessage<WordEvent>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "agents.v1.Word";
+  static readonly typeName = "agents.v1.WordEvent";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "agent_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "word", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Word {
-    return new Word().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WordEvent {
+    return new WordEvent().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Word {
-    return new Word().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WordEvent {
+    return new WordEvent().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Word {
-    return new Word().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WordEvent {
+    return new WordEvent().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Word | PlainMessage<Word> | undefined, b: Word | PlainMessage<Word> | undefined): boolean {
-    return proto3.util.equals(Word, a, b);
+  static equals(a: WordEvent | PlainMessage<WordEvent> | undefined, b: WordEvent | PlainMessage<WordEvent> | undefined): boolean {
+    return proto3.util.equals(WordEvent, a, b);
   }
 }
 
 /**
+ * Placeholder response
+ *
  * @generated from message agents.v1.SpeakResponse
  */
 export class SpeakResponse extends Message$1<SpeakResponse> {
@@ -77,13 +85,13 @@ export class SpeakResponse extends Message$1<SpeakResponse> {
 }
 
 /**
- * @generated from message agents.v1.Agent
+ * @generated from message agents.v1.Player
  */
-export class Agent extends Message$1<Agent> {
+export class Player extends Message$1<Player> {
   /**
-   * @generated from field: agents.v1.Agent.AgentType type = 1;
+   * @generated from field: agents.v1.Player.AgentType type = 1;
    */
-  type = Agent_AgentType.UNSPECIFIED;
+  type = Player_AgentType.UNSPECIFIED;
 
   /**
    * @generated from field: string id = 2;
@@ -95,40 +103,52 @@ export class Agent extends Message$1<Agent> {
    */
   name = "";
 
-  constructor(data?: PartialMessage<Agent>) {
+  /**
+   * @generated from field: int32 x = 4;
+   */
+  x = 0;
+
+  /**
+   * @generated from field: int32 y = 5;
+   */
+  y = 0;
+
+  constructor(data?: PartialMessage<Player>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "agents.v1.Agent";
+  static readonly typeName = "agents.v1.Player";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "type", kind: "enum", T: proto3.getEnumType(Agent_AgentType) },
+    { no: 1, name: "type", kind: "enum", T: proto3.getEnumType(Player_AgentType) },
     { no: 2, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "x", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 5, name: "y", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Agent {
-    return new Agent().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Player {
+    return new Player().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Agent {
-    return new Agent().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Player {
+    return new Player().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Agent {
-    return new Agent().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Player {
+    return new Player().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Agent | PlainMessage<Agent> | undefined, b: Agent | PlainMessage<Agent> | undefined): boolean {
-    return proto3.util.equals(Agent, a, b);
+  static equals(a: Player | PlainMessage<Player> | undefined, b: Player | PlainMessage<Player> | undefined): boolean {
+    return proto3.util.equals(Player, a, b);
   }
 }
 
 /**
- * @generated from enum agents.v1.Agent.AgentType
+ * @generated from enum agents.v1.Player.AgentType
  */
-export enum Agent_AgentType {
+export enum Player_AgentType {
   /**
    * @generated from enum value: AGENT_TYPE_UNSPECIFIED = 0;
    */
@@ -144,8 +164,8 @@ export enum Agent_AgentType {
    */
   BOT = 2,
 }
-// Retrieve enum metadata with: proto3.getEnumType(Agent_AgentType)
-proto3.util.setEnumType(Agent_AgentType, "agents.v1.Agent.AgentType", [
+// Retrieve enum metadata with: proto3.getEnumType(Player_AgentType)
+proto3.util.setEnumType(Player_AgentType, "agents.v1.Player.AgentType", [
   { no: 0, name: "AGENT_TYPE_UNSPECIFIED" },
   { no: 1, name: "AGENT_TYPE_HUMAN" },
   { no: 2, name: "AGENT_TYPE_BOT" },
@@ -154,140 +174,144 @@ proto3.util.setEnumType(Agent_AgentType, "agents.v1.Agent.AgentType", [
 /**
  * Discriminated union of all events.
  *
- * @generated from message agents.v1.Event
+ * @generated from message agents.v1.GameEvent
  */
-export class Event extends Message$1<Event> {
+export class GameEvent extends Message$1<GameEvent> {
   /**
-   * @generated from oneof agents.v1.Event.event
+   * @generated from oneof agents.v1.GameEvent.event
    */
   event: {
     /**
-     * A message was sent by an agent.
-     *
-     * @generated from field: agents.v1.Message message = 1;
+     * @generated from field: agents.v1.PlayerEvent player_event = 1;
      */
-    value: Message;
-    case: "message";
-  } | {
-    /**
-     * @generated from field: agents.v1.InteractionZoneUpdate interaction_zone_update = 2;
-     */
-    value: InteractionZoneUpdate;
-    case: "interactionZoneUpdate";
+    value: PlayerEvent;
+    case: "playerEvent";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
-  constructor(data?: PartialMessage<Event>) {
+  constructor(data?: PartialMessage<GameEvent>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "agents.v1.Event";
+  static readonly typeName = "agents.v1.GameEvent";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "message", kind: "message", T: Message, oneof: "event" },
-    { no: 2, name: "interaction_zone_update", kind: "message", T: InteractionZoneUpdate, oneof: "event" },
+    { no: 1, name: "player_event", kind: "message", T: PlayerEvent, oneof: "event" },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Event {
-    return new Event().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GameEvent {
+    return new GameEvent().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Event {
-    return new Event().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GameEvent {
+    return new GameEvent().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Event {
-    return new Event().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GameEvent {
+    return new GameEvent().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Event | PlainMessage<Event> | undefined, b: Event | PlainMessage<Event> | undefined): boolean {
-    return proto3.util.equals(Event, a, b);
-  }
-}
-
-/**
- * InteractionZoneUpdate is sent by the client to update the interaction zone.
- *
- * @generated from message agents.v1.InteractionZoneUpdate
- */
-export class InteractionZoneUpdate extends Message$1<InteractionZoneUpdate> {
-  /**
-   * @generated from field: repeated agents.v1.Agent agents = 1;
-   */
-  agents: Agent[] = [];
-
-  constructor(data?: PartialMessage<InteractionZoneUpdate>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "agents.v1.InteractionZoneUpdate";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "agents", kind: "message", T: Agent, repeated: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): InteractionZoneUpdate {
-    return new InteractionZoneUpdate().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): InteractionZoneUpdate {
-    return new InteractionZoneUpdate().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): InteractionZoneUpdate {
-    return new InteractionZoneUpdate().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: InteractionZoneUpdate | PlainMessage<InteractionZoneUpdate> | undefined, b: InteractionZoneUpdate | PlainMessage<InteractionZoneUpdate> | undefined): boolean {
-    return proto3.util.equals(InteractionZoneUpdate, a, b);
+  static equals(a: GameEvent | PlainMessage<GameEvent> | undefined, b: GameEvent | PlainMessage<GameEvent> | undefined): boolean {
+    return proto3.util.equals(GameEvent, a, b);
   }
 }
 
 /**
  * Discriminated union of all agent actions.
  *
- * @generated from message agents.v1.AgentAction
+ * @generated from message agents.v1.PlayerEvent
  */
-export class AgentAction extends Message$1<AgentAction> {
+export class PlayerEvent extends Message$1<PlayerEvent> {
   /**
-   * @generated from oneof agents.v1.AgentAction.action
+   * @generated from field: agents.v1.Player player = 1;
    */
-  action: {
+  player?: Player;
+
+  /**
+   * @generated from oneof agents.v1.PlayerEvent.event
+   */
+  event: {
     /**
      * A message was sent by an agent.
      *
-     * @generated from field: agents.v1.Message message = 1;
+     * @generated from field: agents.v1.Message message = 2;
      */
     value: Message;
     case: "message";
+  } | {
+    /**
+     * @generated from field: agents.v1.NearbyPlayers nearby_players = 3;
+     */
+    value: NearbyPlayers;
+    case: "nearbyPlayers";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
-  constructor(data?: PartialMessage<AgentAction>) {
+  constructor(data?: PartialMessage<PlayerEvent>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "agents.v1.AgentAction";
+  static readonly typeName = "agents.v1.PlayerEvent";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "message", kind: "message", T: Message, oneof: "action" },
+    { no: 1, name: "player", kind: "message", T: Player },
+    { no: 2, name: "message", kind: "message", T: Message, oneof: "event" },
+    { no: 3, name: "nearby_players", kind: "message", T: NearbyPlayers, oneof: "event" },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AgentAction {
-    return new AgentAction().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerEvent {
+    return new PlayerEvent().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AgentAction {
-    return new AgentAction().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerEvent {
+    return new PlayerEvent().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AgentAction {
-    return new AgentAction().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerEvent {
+    return new PlayerEvent().fromJsonString(jsonString, options);
   }
 
-  static equals(a: AgentAction | PlainMessage<AgentAction> | undefined, b: AgentAction | PlainMessage<AgentAction> | undefined): boolean {
-    return proto3.util.equals(AgentAction, a, b);
+  static equals(a: PlayerEvent | PlainMessage<PlayerEvent> | undefined, b: PlayerEvent | PlainMessage<PlayerEvent> | undefined): boolean {
+    return proto3.util.equals(PlayerEvent, a, b);
+  }
+}
+
+/**
+ * NearbyPlayers is a list of players near the agent.
+ *
+ * @generated from message agents.v1.NearbyPlayers
+ */
+export class NearbyPlayers extends Message$1<NearbyPlayers> {
+  /**
+   * @generated from field: repeated agents.v1.Player players = 1;
+   */
+  players: Player[] = [];
+
+  constructor(data?: PartialMessage<NearbyPlayers>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "agents.v1.NearbyPlayers";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "players", kind: "message", T: Player, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): NearbyPlayers {
+    return new NearbyPlayers().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): NearbyPlayers {
+    return new NearbyPlayers().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): NearbyPlayers {
+    return new NearbyPlayers().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: NearbyPlayers | PlainMessage<NearbyPlayers> | undefined, b: NearbyPlayers | PlainMessage<NearbyPlayers> | undefined): boolean {
+    return proto3.util.equals(NearbyPlayers, a, b);
   }
 }
 
@@ -297,13 +321,6 @@ export class AgentAction extends Message$1<AgentAction> {
  * @generated from message agents.v1.Message
  */
 export class Message extends Message$1<Message> {
-  /**
-   * The agent that sent the message.
-   *
-   * @generated from field: agents.v1.Agent agent = 1;
-   */
-  agent?: Agent;
-
   /**
    * @generated from field: string content = 2;
    */
@@ -317,7 +334,6 @@ export class Message extends Message$1<Message> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "agents.v1.Message";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "agent", kind: "message", T: Agent },
     { no: 2, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 

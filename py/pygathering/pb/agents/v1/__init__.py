@@ -26,66 +26,64 @@ if TYPE_CHECKING:
     from grpclib.metadata import Deadline
 
 
-class AgentAgentType(betterproto.Enum):
+class PlayerAgentType(betterproto.Enum):
     AGENT_TYPE_UNSPECIFIED = 0
     AGENT_TYPE_HUMAN = 1
     AGENT_TYPE_BOT = 2
 
 
 @dataclass(eq=False, repr=False)
-class Word(betterproto.Message):
+class WordEvent(betterproto.Message):
     """Words is a stream of words."""
 
+    agent_id: str = betterproto.string_field(1)
     word: str = betterproto.string_field(2)
 
 
 @dataclass(eq=False, repr=False)
 class SpeakResponse(betterproto.Message):
+    """Placeholder response"""
+
     pass
 
 
 @dataclass(eq=False, repr=False)
-class Agent(betterproto.Message):
-    type: "AgentAgentType" = betterproto.enum_field(1)
+class Player(betterproto.Message):
+    type: "PlayerAgentType" = betterproto.enum_field(1)
     id: str = betterproto.string_field(2)
     name: str = betterproto.string_field(3)
+    x: int = betterproto.int32_field(4)
+    y: int = betterproto.int32_field(5)
 
 
 @dataclass(eq=False, repr=False)
-class Event(betterproto.Message):
+class GameEvent(betterproto.Message):
     """Discriminated union of all events."""
 
-    message: "Message" = betterproto.message_field(1, group="event")
-    """A message was sent by an agent."""
-
-    interaction_zone_update: "InteractionZoneUpdate" = betterproto.message_field(
-        2, group="event"
-    )
+    player_event: "PlayerEvent" = betterproto.message_field(1, group="event")
 
 
 @dataclass(eq=False, repr=False)
-class InteractionZoneUpdate(betterproto.Message):
-    """
-    InteractionZoneUpdate is sent by the client to update the interaction zone.
-    """
-
-    agents: List["Agent"] = betterproto.message_field(1)
-
-
-@dataclass(eq=False, repr=False)
-class AgentAction(betterproto.Message):
+class PlayerEvent(betterproto.Message):
     """Discriminated union of all agent actions."""
 
-    message: "Message" = betterproto.message_field(1, group="action")
+    player: "Player" = betterproto.message_field(1)
+    message: "Message" = betterproto.message_field(2, group="event")
     """A message was sent by an agent."""
+
+    nearby_players: "NearbyPlayers" = betterproto.message_field(3, group="event")
+
+
+@dataclass(eq=False, repr=False)
+class NearbyPlayers(betterproto.Message):
+    """NearbyPlayers is a list of players near the agent."""
+
+    players: List["Player"] = betterproto.message_field(1)
 
 
 @dataclass(eq=False, repr=False)
 class Message(betterproto.Message):
     """A global chat message sent by an agent."""
-
-    agent: "Agent" = betterproto.message_field(1)
-    """The agent that sent the message."""
 
     content: str = betterproto.string_field(2)
 
@@ -109,17 +107,19 @@ class JoinGameResponse(betterproto.Message):
 class AgentServiceStub(betterproto.ServiceStub):
     async def interact(
         self,
-        event_iterator: Union[AsyncIterable["Event"], Iterable["Event"]],
+        player_event_iterator: Union[
+            AsyncIterable["PlayerEvent"], Iterable["PlayerEvent"]
+        ],
         *,
         timeout: Optional[float] = None,
         deadline: Optional["Deadline"] = None,
         metadata: Optional["MetadataLike"] = None
-    ) -> AsyncIterator["AgentAction"]:
+    ) -> AsyncIterator["GameEvent"]:
         async for response in self._stream_stream(
             "/agents.v1.AgentService/Interact",
-            event_iterator,
-            Event,
-            AgentAction,
+            player_event_iterator,
+            PlayerEvent,
+            GameEvent,
             timeout=timeout,
             deadline=deadline,
             metadata=metadata,
@@ -130,7 +130,7 @@ class AgentServiceStub(betterproto.ServiceStub):
 class AgentAudioVideoServiceStub(betterproto.ServiceStub):
     async def speak(
         self,
-        word_iterator: Union[AsyncIterable["Word"], Iterable["Word"]],
+        word_event_iterator: Union[AsyncIterable["WordEvent"], Iterable["WordEvent"]],
         *,
         timeout: Optional[float] = None,
         deadline: Optional["Deadline"] = None,
@@ -138,8 +138,8 @@ class AgentAudioVideoServiceStub(betterproto.ServiceStub):
     ) -> "SpeakResponse":
         return await self._stream_unary(
             "/agents.v1.AgentAudioVideoService/Speak",
-            word_iterator,
-            Word,
+            word_event_iterator,
+            WordEvent,
             SpeakResponse,
             timeout=timeout,
             deadline=deadline,
@@ -168,13 +168,13 @@ class GameServiceStub(betterproto.ServiceStub):
 
 class AgentServiceBase(ServiceBase):
     async def interact(
-        self, event_iterator: AsyncIterator["Event"]
-    ) -> AsyncIterator["AgentAction"]:
+        self, player_event_iterator: AsyncIterator["PlayerEvent"]
+    ) -> AsyncIterator["GameEvent"]:
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
-        yield AgentAction()
+        yield GameEvent()
 
     async def __rpc_interact(
-        self, stream: "grpclib.server.Stream[Event, AgentAction]"
+        self, stream: "grpclib.server.Stream[PlayerEvent, GameEvent]"
     ) -> None:
         request = stream.__aiter__()
         await self._call_rpc_handler_server_stream(
@@ -188,18 +188,20 @@ class AgentServiceBase(ServiceBase):
             "/agents.v1.AgentService/Interact": grpclib.const.Handler(
                 self.__rpc_interact,
                 grpclib.const.Cardinality.STREAM_STREAM,
-                Event,
-                AgentAction,
+                PlayerEvent,
+                GameEvent,
             ),
         }
 
 
 class AgentAudioVideoServiceBase(ServiceBase):
-    async def speak(self, word_iterator: AsyncIterator["Word"]) -> "SpeakResponse":
+    async def speak(
+        self, word_event_iterator: AsyncIterator["WordEvent"]
+    ) -> "SpeakResponse":
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
     async def __rpc_speak(
-        self, stream: "grpclib.server.Stream[Word, SpeakResponse]"
+        self, stream: "grpclib.server.Stream[WordEvent, SpeakResponse]"
     ) -> None:
         request = stream.__aiter__()
         response = await self.speak(request)
@@ -210,7 +212,7 @@ class AgentAudioVideoServiceBase(ServiceBase):
             "/agents.v1.AgentAudioVideoService/Speak": grpclib.const.Handler(
                 self.__rpc_speak,
                 grpclib.const.Cardinality.STREAM_UNARY,
-                Word,
+                WordEvent,
                 SpeakResponse,
             ),
         }

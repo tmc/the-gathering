@@ -9,10 +9,11 @@ from betterproto.grpc.util.async_channel import AsyncChannel
 
 
 from pb.agents.v1 import (
-    AgentServiceStub, 
-    AgentAction, 
-    Event,
+    AgentServiceStub,
+    PlayerEvent,
+    GameEvent,
     Message,
+    Player,
 )
 
 
@@ -24,9 +25,10 @@ async def main():
     request_channel = AsyncChannel()
 
     initial_calls = [
-        AgentAction(message=Message(
-            content="Hello, world!",
-        )),
+        PlayerEvent(
+            player=Player(id=AGENT_ID, name="Agent Smith"),
+            message=Message(content="Hello, world!"),
+        ),
     ]
     await request_channel.send_from(initial_calls)
     async for response in client.interact(request_channel):

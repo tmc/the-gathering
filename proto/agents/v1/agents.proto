@@ -4,24 +4,26 @@ package agents.v1;
 
 service AgentService {
   // Interact is a bidirectional stream of agent actions and events.
-  rpc Interact(stream Event) returns (stream AgentAction) {}
+  rpc Interact(stream PlayerEvent) returns (stream GameEvent) {}
 }
 
 service AgentAudioVideoService {
   // Speak is a stream of words to be spoken by the agent.
-  rpc Speak(stream Word) returns (SpeakResponse) {}
+  rpc Speak(stream WordEvent) returns (SpeakResponse) {}
   // TODO set profile? stream video content?
 }
 
 // Words is a stream of words.
-message Word {
+message WordEvent {
+  string agent_id = 1;
   string word = 2;
 }
 
+// Placeholder response
 message SpeakResponse {
 }
 
-message Agent {
+message Player {
   enum AgentType {
     AGENT_TYPE_UNSPECIFIED = 0;
     AGENT_TYPE_HUMAN = 1;
@@ -29,36 +31,35 @@ message Agent {
   }
   AgentType type = 1;
   string id = 2;
-
   string name = 3;
+
+  int32 x = 4;
+  int32 y = 5;
 }
 
 // Discriminated union of all events.
-message Event {
+message GameEvent {
   oneof event {
-    // A message was sent by an agent.
-    Message message = 1;
-    InteractionZoneUpdate interaction_zone_update = 2;
+    PlayerEvent player_event = 1;
   }
-}
-
-// InteractionZoneUpdate is sent by the client to update the interaction zone.
-message InteractionZoneUpdate {
-  repeated Agent agents = 1;
 }
 
 // Discriminated union of all agent actions.
-message AgentAction {
-  oneof action {
+message PlayerEvent {
+  Player player = 1;
+  oneof event {
     // A message was sent by an agent.
-    Message message = 1;
+    Message message = 2;
+    NearbyPlayers nearby_players = 3;
   }
+}
+
+// NearbyPlayers is a list of players near the agent.
+message NearbyPlayers {
+  repeated Player players = 1;
 }
 
 // A global chat message sent by an agent.
 message Message {
-  // The agent that sent the message.
-  Agent agent = 1;
   string content = 2;
 }
-

@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AgentAction, Event, SpeakResponse, Word } from "./agents_pb.js";
+import { GameEvent, PlayerEvent, SpeakResponse, WordEvent } from "./agents_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -19,8 +19,8 @@ export const AgentService = {
      */
     interact: {
       name: "Interact",
-      I: Event,
-      O: AgentAction,
+      I: PlayerEvent,
+      O: GameEvent,
       kind: MethodKind.BiDiStreaming,
     },
   }
@@ -39,7 +39,7 @@ export const AgentAudioVideoService = {
      */
     speak: {
       name: "Speak",
-      I: Word,
+      I: WordEvent,
       O: SpeakResponse,
       kind: MethodKind.ClientStreaming,
     },
