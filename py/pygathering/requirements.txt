@@ -4,14 +4,30 @@
 #
 #    pip-compile requirements.in
 #
+betterproto==2.0.0b6
+    # via -r requirements.in
 grpcio==1.59.0
     # via
     #   -r requirements.in
     #   grpcio-tools
 grpcio-tools==1.59.0
     # via -r requirements.in
+grpclib==0.4.6
+    # via betterproto
+h2==4.1.0
+    # via grpclib
+hpack==4.0.0
+    # via h2
+hyperframe==6.0.1
+    # via h2
+multidict==6.0.4
+    # via grpclib
 protobuf==4.24.4
     # via grpcio-tools
+python-dateutil==2.8.2
+    # via betterproto
+six==1.16.0
+    # via python-dateutil
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

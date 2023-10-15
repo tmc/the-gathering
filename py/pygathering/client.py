@@ -1,37 +1,40 @@
 import asyncio
 import logging
+from dataclasses import dataclass
+from typing import AsyncIterator
 
-import grpc
-from pb.agents.v1 import agents_pb2
-from pb.agents.v1 import agents_pb2_grpc
-
-
-async def run() -> None:
-    async with grpc.aio.insecure_channel("localhost:50051") as channel:
-        stub = agents_pb2_grpc.AgentServiceStub(channel=channel)
-
-        # Read from an async generator
-        async for response in stub.sayHello(
-            hellostreamingworld_pb2.HelloRequest(name="you")
-        ):
-            print(
-                "Greeter client received from async generator: "
-                + response.message
-            )
-
-        # Direct read from the stub
-        hello_stream = stub.sayHello(
-            hellostreamingworld_pb2.HelloRequest(name="you")
-        )
-        while True:
-            response = await hello_stream.read()
-            if response == grpc.aio.EOF:
-                break
-            print(
-                "Greeter client received from direct read: " + response.message
-            )
+from grpclib.client import Channel
+import betterproto
+from betterproto.grpc.util.async_channel import AsyncChannel
 
 
-if __name__ == "__main__":
-    logging.basicConfig()
-    asyncio.run(run())
+from pb.agents.v1 import (
+    AgentServiceStub, 
+    AgentAction, 
+    Event,
+    Message,
+)
+
+
+AGENT_ID=42
+
+async def main():
+    channel = Channel(host="127.0.0.1", port=8080)
+    client = AgentServiceStub(channel)
+    request_channel = AsyncChannel()
+
+    initial_calls = [
+        AgentAction(message=Message(
+            agent_id=AGENT_ID,
+            content="Hello, world!",
+        )),
+    ]
+    await request_channel.send_from(initial_calls)
+    async for response in client.interact(request_channel):
+        print("Received response:", response)
+
+
+
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
