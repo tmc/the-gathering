@@ -4,13 +4,15 @@ global.WebSocket = require("isomorphic-ws");
 import dotenv from "dotenv";
 dotenv.config();
 
-const SPACE_ID = "FSb4gHVCWxZOiegX\\TheGather";
-const { GATHER_API_KEY } = process.env;
+const { GATHER_API_KEY, SPACE_ID } = process.env;
 
 if (!GATHER_API_KEY) {
   throw new Error("Missing the GATHER_API_KEY in .env file");
 }
 
+if (!SPACE_ID) {
+  throw new Error("Missing the SPACE_ID in .env file");
+}
 // setup
 const game = new Game(SPACE_ID, () =>
   Promise.resolve({ apiKey: GATHER_API_KEY })

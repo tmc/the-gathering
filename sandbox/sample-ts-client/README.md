@@ -14,13 +14,13 @@ prereq: have NodeJS and npm installed
 
 run `npm install`
 
-put your API key in a file named `api-key.ts` like so:
+put your API key and Space ID in .env like so:
 
 ```js
 export const API_KEY = "your-api-key-here";
+export const SPACE_ID = "your-api-key-here";
 ```
 
-replace the `SPACE_ID` in index.ts with your own spaceId
 
 ## running
 
