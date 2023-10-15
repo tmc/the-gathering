@@ -12,5 +12,9 @@ export default (router: ConnectRouter) =>
         console.log("Received request:", req);
       }
 
+    },
+    async healthCheck(req) {
+      return {
+      };
     }
   });

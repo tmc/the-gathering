@@ -6,6 +6,8 @@
 #
 betterproto==2.0.0b6
     # via -r requirements.in
+googleapis-common-protos==1.61.0
+    # via -r requirements.in
 grpcio==1.59.0
     # via
     #   -r requirements.in
@@ -23,7 +25,9 @@ hyperframe==6.0.1
 multidict==6.0.4
     # via grpclib
 protobuf==4.24.4
-    # via grpcio-tools
+    # via
+    #   googleapis-common-protos
+    #   grpcio-tools
 python-dateutil==2.8.2
     # via betterproto
 six==1.16.0

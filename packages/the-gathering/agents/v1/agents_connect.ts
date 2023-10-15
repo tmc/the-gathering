@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GameEvent, PlayerEvent, SpeakResponse, WordEvent } from "./agents_pb.js";
+import { GameEvent, HealthCheckRequest, HealthCheckResponse, PlayerEvent, SpeakResponse, WordEvent } from "./agents_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -22,6 +22,15 @@ export const AgentService = {
       I: PlayerEvent,
       O: GameEvent,
       kind: MethodKind.BiDiStreaming,
+    },
+    /**
+     * @generated from rpc agents.v1.AgentService.HealthCheck
+     */
+    healthCheck: {
+      name: "HealthCheck",
+      I: HealthCheckRequest,
+      O: HealthCheckResponse,
+      kind: MethodKind.Unary,
     },
   }
 } as const;

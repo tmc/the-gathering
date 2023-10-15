@@ -14,14 +14,22 @@ from pb.agents.v1 import (
     GameEvent,
     Message,
     Player,
+
+    HealthCheckRequest, HealthCheckResponse
 )
 
 
 AGENT_ID=42
 
 async def main():
-    channel = Channel(host="127.0.0.1", port=8080)
+    channel = Channel(host="localhost", port=8080)
     client = AgentServiceStub(channel)
+
+    resp = await client.health_check(HealthCheckRequest())
+    print("resp:",resp)
+
+
+    '''
     request_channel = AsyncChannel()
 
     initial_calls = [
@@ -33,7 +41,7 @@ async def main():
     await request_channel.send_from(initial_calls)
     async for response in client.interact(request_channel):
         print("Received response:", response)
-
+    '''
 
 
 if __name__ == '__main__':

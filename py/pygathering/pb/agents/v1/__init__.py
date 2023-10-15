@@ -33,6 +33,16 @@ class PlayerAgentType(betterproto.Enum):
 
 
 @dataclass(eq=False, repr=False)
+class HealthCheckRequest(betterproto.Message):
+    pass
+
+
+@dataclass(eq=False, repr=False)
+class HealthCheckResponse(betterproto.Message):
+    pass
+
+
+@dataclass(eq=False, repr=False)
 class WordEvent(betterproto.Message):
     """Words is a stream of words."""
 
@@ -126,6 +136,23 @@ class AgentServiceStub(betterproto.ServiceStub):
         ):
             yield response
 
+    async def health_check(
+        self,
+        health_check_request: "HealthCheckRequest",
+        *,
+        timeout: Optional[float] = None,
+        deadline: Optional["Deadline"] = None,
+        metadata: Optional["MetadataLike"] = None
+    ) -> "HealthCheckResponse":
+        return await self._unary_unary(
+            "/agents.v1.AgentService/HealthCheck",
+            health_check_request,
+            HealthCheckResponse,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
 
 class AgentAudioVideoServiceStub(betterproto.ServiceStub):
     async def speak(
@@ -173,6 +200,11 @@ class AgentServiceBase(ServiceBase):
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
         yield GameEvent()
 
+    async def health_check(
+        self, health_check_request: "HealthCheckRequest"
+    ) -> "HealthCheckResponse":
+        raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
+
     async def __rpc_interact(
         self, stream: "grpclib.server.Stream[PlayerEvent, GameEvent]"
     ) -> None:
@@ -183,6 +215,13 @@ class AgentServiceBase(ServiceBase):
             request,
         )
 
+    async def __rpc_health_check(
+        self, stream: "grpclib.server.Stream[HealthCheckRequest, HealthCheckResponse]"
+    ) -> None:
+        request = await stream.recv_message()
+        response = await self.health_check(request)
+        await stream.send_message(response)
+
     def __mapping__(self) -> Dict[str, grpclib.const.Handler]:
         return {
             "/agents.v1.AgentService/Interact": grpclib.const.Handler(
@@ -190,6 +229,12 @@ class AgentServiceBase(ServiceBase):
                 grpclib.const.Cardinality.STREAM_STREAM,
                 PlayerEvent,
                 GameEvent,
+            ),
+            "/agents.v1.AgentService/HealthCheck": grpclib.const.Handler(
+                self.__rpc_health_check,
+                grpclib.const.Cardinality.UNARY_UNARY,
+                HealthCheckRequest,
+                HealthCheckResponse,
             ),
         }
 
