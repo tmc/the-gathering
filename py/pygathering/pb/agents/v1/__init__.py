@@ -81,18 +81,28 @@ class PlayerEvent(betterproto.Message):
     """Discriminated union of all agent actions."""
 
     player: "Player" = betterproto.message_field(1)
-    message: Optional["Message"] = betterproto.message_field(
+    joined: Optional["PlayerJoined"] = betterproto.message_field(
         2, optional=True, group="event"
+    )
+    message: Optional["Message"] = betterproto.message_field(
+        3, optional=True, group="event"
     )
     """A message was sent by an agent."""
 
     nearby_players: Optional["NearbyPlayers"] = betterproto.message_field(
-        3, optional=True, group="event"
+        4, optional=True, group="event"
     )
 
     @root_validator()
     def check_oneof(cls, values):
         return cls._validate_field_groups(values)
+
+
+@dataclass(eq=False, repr=False)
+class PlayerJoined(betterproto.Message):
+    """PlayerJoined is sent when an agent joins the game."""
+
+    pass
 
 
 @dataclass(eq=False, repr=False)

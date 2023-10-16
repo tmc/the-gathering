@@ -39,11 +39,15 @@ message GameEvent {
 message PlayerEvent {
   Player player = 1;
   oneof event {
+    PlayerJoined joined = 2;
     // A message was sent by an agent.
-    Message message = 2;
-    NearbyPlayers nearby_players = 3;
+    Message message = 3;
+    NearbyPlayers nearby_players = 4;
   }
 }
+
+// PlayerJoined is sent when an agent joins the game.
+message PlayerJoined {}
 
 // NearbyPlayers is a list of players near the agent.
 message NearbyPlayers {

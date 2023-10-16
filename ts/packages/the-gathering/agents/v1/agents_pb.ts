@@ -216,15 +216,21 @@ export class PlayerEvent extends Message$1<PlayerEvent> {
    */
   event: {
     /**
+     * @generated from field: agents.v1.PlayerJoined joined = 2;
+     */
+    value: PlayerJoined;
+    case: "joined";
+  } | {
+    /**
      * A message was sent by an agent.
      *
-     * @generated from field: agents.v1.Message message = 2;
+     * @generated from field: agents.v1.Message message = 3;
      */
     value: Message;
     case: "message";
   } | {
     /**
-     * @generated from field: agents.v1.NearbyPlayers nearby_players = 3;
+     * @generated from field: agents.v1.NearbyPlayers nearby_players = 4;
      */
     value: NearbyPlayers;
     case: "nearbyPlayers";
@@ -239,8 +245,9 @@ export class PlayerEvent extends Message$1<PlayerEvent> {
   static readonly typeName = "agents.v1.PlayerEvent";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "player", kind: "message", T: Player },
-    { no: 2, name: "message", kind: "message", T: Message, oneof: "event" },
-    { no: 3, name: "nearby_players", kind: "message", T: NearbyPlayers, oneof: "event" },
+    { no: 2, name: "joined", kind: "message", T: PlayerJoined, oneof: "event" },
+    { no: 3, name: "message", kind: "message", T: Message, oneof: "event" },
+    { no: 4, name: "nearby_players", kind: "message", T: NearbyPlayers, oneof: "event" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerEvent {
@@ -257,6 +264,39 @@ export class PlayerEvent extends Message$1<PlayerEvent> {
 
   static equals(a: PlayerEvent | PlainMessage<PlayerEvent> | undefined, b: PlayerEvent | PlainMessage<PlayerEvent> | undefined): boolean {
     return proto3.util.equals(PlayerEvent, a, b);
+  }
+}
+
+/**
+ * PlayerJoined is sent when an agent joins the game.
+ *
+ * @generated from message agents.v1.PlayerJoined
+ */
+export class PlayerJoined extends Message$1<PlayerJoined> {
+  constructor(data?: PartialMessage<PlayerJoined>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "agents.v1.PlayerJoined";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerJoined {
+    return new PlayerJoined().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerJoined {
+    return new PlayerJoined().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerJoined {
+    return new PlayerJoined().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerJoined | PlainMessage<PlayerJoined> | undefined, b: PlayerJoined | PlainMessage<PlayerJoined> | undefined): boolean {
+    return proto3.util.equals(PlayerJoined, a, b);
   }
 }
 
