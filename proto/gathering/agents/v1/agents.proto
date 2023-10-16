@@ -42,6 +42,7 @@ message ClientServerAction {
 // The set of all events that can be sent from the server to the client.
 message ServerClientEvent {
   oneof event {
+    Ready ready = 103;
     ServerHeartbeat serverHeartbeat = 105;
 
     PlayerMoves playerMoves = 1;

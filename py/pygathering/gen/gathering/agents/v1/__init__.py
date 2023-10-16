@@ -96,6 +96,7 @@ class ServerClientEvent(betterproto.Message):
     The set of all events that can be sent from the server to the client.
     """
 
+    ready: "Ready" = betterproto.message_field(103, group="event")
     server_heartbeat: "ServerHeartbeat" = betterproto.message_field(105, group="event")
     player_moves: "PlayerMoves" = betterproto.message_field(1, group="event")
     player_sets_status: "PlayerSetsStatus" = betterproto.message_field(5, group="event")

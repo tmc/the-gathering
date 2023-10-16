@@ -28,13 +28,17 @@ func main() {
 	log.Println(res.Msg)
 	log.Println(res.Header().Get("Some-Other-Header"))
 
-	stream := client.Interact(context.Background())
+	stream := client.Run(context.Background())
 
-	stream.Send(&agentsv1.PlayerEvent{
-		Player: &agentsv1.Player{
-			Name: "tmc",
+	stream.Send(&agentsv1.ClientServerAction{
+		Action: &agentsv1.ClientServerAction_Init{
+			Init: &agentsv1.Init{
+				SpaceId: "foo",
+				Auth: &agentsv1.Init_ApiKey{
+					ApiKey: "bar",
+				},
+			},
 		},
-		Event: &agentsv1.PlayerEvent_Joined{},
 	})
 
 	for {

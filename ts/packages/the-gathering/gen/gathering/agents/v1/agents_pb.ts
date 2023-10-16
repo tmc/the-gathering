@@ -231,6 +231,12 @@ export class ServerClientEvent extends Message<ServerClientEvent> {
    */
   event: {
     /**
+     * @generated from field: gathering.agents.v1.Ready ready = 103;
+     */
+    value: Ready;
+    case: "ready";
+  } | {
+    /**
      * @generated from field: gathering.agents.v1.ServerHeartbeat serverHeartbeat = 105;
      */
     value: ServerHeartbeat;
@@ -335,6 +341,7 @@ export class ServerClientEvent extends Message<ServerClientEvent> {
   static readonly runtime: typeof proto3 = proto3;
   static readonly typeName = "gathering.agents.v1.ServerClientEvent";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 103, name: "ready", kind: "message", T: Ready, oneof: "event" },
     { no: 105, name: "serverHeartbeat", kind: "message", T: ServerHeartbeat, oneof: "event" },
     { no: 1, name: "playerMoves", kind: "message", T: PlayerMoves, oneof: "event" },
     { no: 5, name: "playerSetsStatus", kind: "message", T: PlayerSetsStatus, oneof: "event" },

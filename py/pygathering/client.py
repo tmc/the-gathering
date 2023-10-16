@@ -12,24 +12,23 @@ from betterproto.grpc.util.async_channel import AsyncChannel
 
 from gen.gathering.agents.v1 import (
     AgentServiceStub,
-    PlayerEvent,
-    GameEvent,
-    Message,
-    Player,
-    PlayerType,
+    ClientServerAction,
+    ClientHeartbeat,
+    ServerClientEvent,
+
+    Init,
+    Enter,
+    PlayerInitInfo,
 
     HealthCheckRequest, HealthCheckResponse
 )
 
 AGENT_ID=42
 
-PLAYER=Player(
-    id=AGENT_ID,
+PLAYER=PlayerInitInfo(
     name="Agent Smith",
-    type=PlayerType.PLAYER_TYPE_BOT,
+    is_npc=True,
 )
-
-import time;
 
 async def main():
     async with Channel(host="127.0.0.1", port=8080) as channel:
@@ -43,26 +42,21 @@ async def main():
 
     request_channel = AsyncChannel()
     initial_calls = [
-        PlayerEvent(
-
-            player=PLAYER,
-            message=Message(content="Hello, world!"),
-        ),
+        ClientServerAction(init=Init()),
+        ClientServerAction(enter=Enter(info=PLAYER)),
     ]
     print('sending initial calls')
     await request_channel.send_from(initial_calls)
     print('sent initial calls, waiting for responses')
     # fork off and sleep 2s, then send a game event
     async def send_game_event():
-        await asyncio.sleep(2)
-        await request_channel.send_from([
-            GameEvent(
-                player=PLAYER,
-                message=Message(content="Hello, world!"),
-            ),
-        ])
+        while True:
+            await asyncio.sleep(2)
+            await request_channel.send_from([
+                ClientServerAction(client_heartbeat=ClientHeartbeat()),
+            ])
     asyncio.create_task(send_game_event())
-    async for response in client.interact(request_channel):
+    async for response in client.run(request_channel):
         print("Received response:", response)
 
 if __name__ == '__main__':

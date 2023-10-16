@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"connectrpc.com/connect"
@@ -16,8 +17,12 @@ type AgentServiceServer struct {
 	agentsv1connect.UnimplementedAgentServiceHandler
 }
 
-func (s *AgentServiceServer) Interact(ctx context.Context, stream *connect.BidiStream[v1.PlayerEvent, v1.GameEvent]) error {
-	if err := stream.Send(&v1.GameEvent{}); err != nil {
+func (s *AgentServiceServer) Run(ctx context.Context, stream *connect.BidiStream[v1.ClientServerAction, v1.ServerClientEvent]) error {
+	if err := stream.Send(&v1.ServerClientEvent{
+		Event: &v1.ServerClientEvent_Ready{
+			Ready: &v1.Ready{},
+		},
+	}); err != nil {
 		return err
 	}
 
@@ -27,7 +32,10 @@ func (s *AgentServiceServer) Interact(ctx context.Context, stream *connect.BidiS
 			return err
 		}
 		j, _ := json.Marshal(event)
-		if err := stream.Send(&v1.GameEvent{}); err != nil {
+		fmt.Println("received event:", string(j))
+		if err := stream.Send(&v1.ServerClientEvent{
+			Event: &v1.ServerClientEvent_ServerHeartbeat{},
+		}); err != nil {
 			return err
 		}
 	}
