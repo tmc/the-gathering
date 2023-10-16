@@ -2,8 +2,8 @@ import { createPromiseClient } from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-node";
 import { createGrpcTransport } from "@connectrpc/connect-node";
 
-import { AgentService } from "./agents/v1/agents_connect";
-import { Player, PlayerEvent } from "./agents/v1/agents_pb";
+import { AgentService } from "./gen/gathering/agents/v1/agents_connect";
+import { Player, PlayerEvent } from "./gen/gathering/agents/v1/agents_pb";
 
 const PLAYER = new Player({
   id: "1",

@@ -8,8 +8,8 @@ import (
 	"net/http"
 
 	"connectrpc.com/connect"
-	agentsv1 "github.com/tmc/the-gathering/go/gen/agents/v1"
-	"github.com/tmc/the-gathering/go/gen/agents/v1/agentsv1connect"
+	agentsv1 "github.com/tmc/the-gathering/go/gen/gathering/agents/v1"
+	"github.com/tmc/the-gathering/go/gen/gathering/agents/v1/agentsv1connect"
 	"golang.org/x/net/http2"
 )
 

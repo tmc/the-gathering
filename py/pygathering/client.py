@@ -10,7 +10,7 @@ from betterproto.grpc.util.async_channel import AsyncChannel
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
 
-from pb.agents.v1 import (
+from gen.gathering.agents.v1 import (
     AgentServiceStub,
     PlayerEvent,
     GameEvent,

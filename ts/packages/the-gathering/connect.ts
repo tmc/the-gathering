@@ -1,6 +1,6 @@
 import { ConnectRouter } from "@connectrpc/connect";
-import { AgentService } from "./agents/v1/agents_connect";
-import { PlayerEvent, GameEvent } from "./agents/v1/agents_pb";
+import { AgentService } from "./gen/gathering/agents/v1/agents_connect";
+import { PlayerEvent, GameEvent } from "./gen/gathering/agents/v1/agents_pb";
 
 export default (router: ConnectRouter) =>
   // registers connectrpc.eliza.v1.ElizaService

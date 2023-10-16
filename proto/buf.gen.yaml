@@ -11,10 +11,10 @@ plugins:
     out: ../go/gen
     opt: paths=source_relative
   - plugin: es
-    out: ../ts/packages/the-gathering
+    out: ../ts/packages/the-gathering/gen
     opt: target=ts
   - plugin: connect-es
-    out: ../ts/packages/the-gathering
+    out: ../ts/packages/the-gathering/gen
     opt: target=ts
   - plugin: python_betterproto
-    out: ../py/pygathering/pb
+    out: ../py/pygathering/gen
