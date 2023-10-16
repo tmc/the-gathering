@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -17,14 +18,20 @@ type AgentServiceServer struct {
 }
 
 func (s *AgentServiceServer) Interact(ctx context.Context, stream *connect.BidiStream[v1.PlayerEvent, v1.GameEvent]) error {
-	stream.Send(&v1.GameEvent{})
+	if err := stream.Send(&v1.GameEvent{}); err != nil {
+		return err
+	}
 
 	for {
 		event, err := stream.Receive()
 		if err != nil {
 			return err
 		}
-		fmt.Println(event)
+		j, _ := json.Marshal(event)
+		fmt.Println("got event:", string(j))
+		if err := stream.Send(&v1.GameEvent{}); err != nil {
+			return err
+		}
 	}
 }
 func (srv *AgentServiceServer) HealthCheck(ctx context.Context, r *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.HealthCheckResponse], error) {
