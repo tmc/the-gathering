@@ -5,10 +5,10 @@ managed:
     default: github.com/tmc/the-gathering/internal/gen
 plugins:
   - plugin: go
-    out: ../internal/gen
+    out: ../go/gen
     opt: paths=source_relative
   - plugin: connect-go
-    out: ../internal/gen
+    out: ../go/gen
     opt: paths=source_relative
   - plugin: es
     out: ../ts/packages/the-gathering
@@ -18,3 +18,4 @@ plugins:
     opt: target=ts
   - plugin: python_betterproto
     out: ../py/pygathering/pb
+    opt: pydantic_dataclasses

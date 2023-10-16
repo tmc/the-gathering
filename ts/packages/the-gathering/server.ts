@@ -5,15 +5,16 @@ import type { FastifyRequest } from "fastify/types/request";
 
 async function main() {
   const server = fastify({
-    logger: {
-      level: 'debug',
-    },
+    http2: true,
+    // logger: {
+    //   level: 'debug',
+    // },
   });
   await server.register(fastifyConnectPlugin, {
     routes,
-    contextValues: (request: FastifyRequest) => {
-      console.log("request", request);
-    },
+    // contextValues: (request: FastifyRequest) => {
+    //   console.log("request", request);
+    // },
   });
   server.get("/", (_, reply) => {
     reply.type("text/plain");

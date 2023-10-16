@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GameEvent, HealthCheckRequest, HealthCheckResponse, PlayerEvent, SpeakResponse, WordEvent } from "./agents_pb.js";
+import { GameEvent, HealthCheckRequest, HealthCheckResponse, PlayerEvent, ProvisionAgentRequest, ProvisionAgentResponse } from "./agents_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -32,25 +32,14 @@ export const AgentService = {
       O: HealthCheckResponse,
       kind: MethodKind.Unary,
     },
-  }
-} as const;
-
-/**
- * @generated from service agents.v1.AgentAudioVideoService
- */
-export const AgentAudioVideoService = {
-  typeName: "agents.v1.AgentAudioVideoService",
-  methods: {
     /**
-     * Speak is a stream of words to be spoken by the agent.
-     *
-     * @generated from rpc agents.v1.AgentAudioVideoService.Speak
+     * @generated from rpc agents.v1.AgentService.ProvisionAgent
      */
-    speak: {
-      name: "Speak",
-      I: WordEvent,
-      O: SpeakResponse,
-      kind: MethodKind.ClientStreaming,
+    provisionAgent: {
+      name: "ProvisionAgent",
+      I: ProvisionAgentRequest,
+      O: ProvisionAgentResponse,
+      kind: MethodKind.Unary,
     },
   }
 } as const;

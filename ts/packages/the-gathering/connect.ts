@@ -1,17 +1,19 @@
 import { ConnectRouter } from "@connectrpc/connect";
 import { AgentService } from "./agents/v1/agents_connect";
-import { Event } from "./agents/v1/agents_pb";
+import { PlayerEvent, GameEvent } from "./agents/v1/agents_pb";
 
 export default (router: ConnectRouter) =>
   // registers connectrpc.eliza.v1.ElizaService
   router.service(AgentService, {
     // implements rpc interact
-    async *interact(reqs: AsyncIterable<Event>) {
-
-      for await (const req of reqs) {
+    async *interact(playerEvents: AsyncIterable<PlayerEvent>): AsyncGenerator<GameEvent> {
+      // wait but yield after 2 seconds:
+      console.log('interact start')
+      for await (const event of playerEvents) {
         console.log("Received request:", req);
+        yield new GameEvent();
       }
-
+      console.log('interact end')
     },
     async healthCheck(req) {
       return {

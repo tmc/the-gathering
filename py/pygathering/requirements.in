@@ -2,3 +2,4 @@ grpcio
 grpcio-tools
 betterproto
 googleapis-common-protos
+pydantic<2

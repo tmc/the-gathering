@@ -12,18 +12,20 @@ service AgentService {
 message HealthCheckRequest { }
 message HealthCheckResponse { }
 
+enum PlayerType {
+  PLAYER_TYPE_UNSPECIFIED = 0;
+  PLAYER_TYPE_HUMAN = 1;
+  PLAYER_TYPE_BOT = 2;
+}
+
 message Player {
-  enum AgentType {
-    AGENT_TYPE_UNSPECIFIED = 0;
-    AGENT_TYPE_HUMAN = 1;
-    AGENT_TYPE_BOT = 2;
-  }
-  AgentType type = 1;
+  PlayerType type = 1;
   string id = 2;
   string name = 3;
 
-  int32 x = 4;
-  int32 y = 5;
+  optional int32 x = 4;
+
+  optional int32 y = 5;
 }
 
 // Discriminated union of all events.
