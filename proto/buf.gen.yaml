@@ -18,4 +18,3 @@ plugins:
     opt: target=ts
   - plugin: python_betterproto
     out: ../py/pygathering/pb
-    opt: pydantic_dataclasses

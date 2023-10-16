@@ -3,14 +3,7 @@
 # plugin: python-betterproto
 # This file has been @generated
 
-from typing import TYPE_CHECKING
-
-
-if TYPE_CHECKING:
-    from dataclasses import dataclass
-else:
-    from pydantic.dataclasses import dataclass
-
+from dataclasses import dataclass
 from typing import (
     TYPE_CHECKING,
     AsyncIterable,
@@ -25,7 +18,6 @@ from typing import (
 import betterproto
 import grpclib
 from betterproto.grpc.grpclib_server import ServiceBase
-from pydantic import root_validator
 
 
 if TYPE_CHECKING:
@@ -58,22 +50,12 @@ class Player(betterproto.Message):
     x: Optional[int] = betterproto.int32_field(4, optional=True, group="_x")
     y: Optional[int] = betterproto.int32_field(5, optional=True, group="_y")
 
-    @root_validator()
-    def check_oneof(cls, values):
-        return cls._validate_field_groups(values)
-
 
 @dataclass(eq=False, repr=False)
 class GameEvent(betterproto.Message):
     """Discriminated union of all events."""
 
-    player_event: Optional["PlayerEvent"] = betterproto.message_field(
-        1, optional=True, group="event"
-    )
-
-    @root_validator()
-    def check_oneof(cls, values):
-        return cls._validate_field_groups(values)
+    player_event: "PlayerEvent" = betterproto.message_field(1, group="event")
 
 
 @dataclass(eq=False, repr=False)
@@ -81,21 +63,11 @@ class PlayerEvent(betterproto.Message):
     """Discriminated union of all agent actions."""
 
     player: "Player" = betterproto.message_field(1)
-    joined: Optional["PlayerJoined"] = betterproto.message_field(
-        2, optional=True, group="event"
-    )
-    message: Optional["Message"] = betterproto.message_field(
-        3, optional=True, group="event"
-    )
+    joined: "PlayerJoined" = betterproto.message_field(2, group="event")
+    message: "Message" = betterproto.message_field(3, group="event")
     """A message was sent by an agent."""
 
-    nearby_players: Optional["NearbyPlayers"] = betterproto.message_field(
-        4, optional=True, group="event"
-    )
-
-    @root_validator()
-    def check_oneof(cls, values):
-        return cls._validate_field_groups(values)
+    nearby_players: "NearbyPlayers" = betterproto.message_field(4, group="event")
 
 
 @dataclass(eq=False, repr=False)
@@ -153,10 +125,6 @@ class JoinGameRequest(betterproto.Message):
         2, optional=True, group="_room_id"
     )
     """e.g. "Room1"""
-
-    @root_validator()
-    def check_oneof(cls, values):
-        return cls._validate_field_groups(values)
 
 
 @dataclass(eq=False, repr=False)
@@ -371,11 +339,3 @@ class GameServiceBase(ServiceBase):
                 JoinGameResponse,
             ),
         }
-
-
-Player.__pydantic_model__.update_forward_refs()  # type: ignore
-GameEvent.__pydantic_model__.update_forward_refs()  # type: ignore
-PlayerEvent.__pydantic_model__.update_forward_refs()  # type: ignore
-NearbyPlayers.__pydantic_model__.update_forward_refs()  # type: ignore
-ProvisionAgentRequest.__pydantic_model__.update_forward_refs()  # type: ignore
-ProvisionAgentResponse.__pydantic_model__.update_forward_refs()  # type: ignore

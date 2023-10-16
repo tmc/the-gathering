@@ -7,8 +7,8 @@ from grpclib.client import Channel
 import betterproto
 from betterproto.grpc.util.async_channel import AsyncChannel
 
-import logging
-logging.basicConfig(level=logging.DEBUG)
+# import logging
+# logging.basicConfig(level=logging.DEBUG)
 
 from pb.agents.v1 import (
     AgentServiceStub,
