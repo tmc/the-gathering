@@ -33,22 +33,19 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
-	// AgentServiceInteractProcedure is the fully-qualified name of the AgentService's Interact RPC.
-	AgentServiceInteractProcedure = "/gathering.agents.v1.AgentService/Interact"
 	// AgentServiceHealthCheckProcedure is the fully-qualified name of the AgentService's HealthCheck
 	// RPC.
 	AgentServiceHealthCheckProcedure = "/gathering.agents.v1.AgentService/HealthCheck"
-	// AgentServiceProvisionAgentProcedure is the fully-qualified name of the AgentService's
-	// ProvisionAgent RPC.
-	AgentServiceProvisionAgentProcedure = "/gathering.agents.v1.AgentService/ProvisionAgent"
+	// AgentServiceRunProcedure is the fully-qualified name of the AgentService's Run RPC.
+	AgentServiceRunProcedure = "/gathering.agents.v1.AgentService/Run"
 )
 
 // AgentServiceClient is a client for the gathering.agents.v1.AgentService service.
 type AgentServiceClient interface {
-	// Interact is a bidirectional stream of agent actions and events.
-	Interact(context.Context) *connect.BidiStreamForClient[v1.PlayerEvent, v1.GameEvent]
+	// HealthCheck is a unary RPC that returns a response when the server is ready.
 	HealthCheck(context.Context, *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.HealthCheckResponse], error)
-	ProvisionAgent(context.Context, *connect.Request[v1.ProvisionAgentRequest]) (*connect.Response[v1.ProvisionAgentResponse], error)
+	// Run is a bidirectional stream of actions and events.
+	Run(context.Context) *connect.BidiStreamForClient[v1.ClientServerAction, v1.ServerClientEvent]
 }
 
 // NewAgentServiceClient constructs a client for the gathering.agents.v1.AgentService service. By
@@ -61,19 +58,14 @@ type AgentServiceClient interface {
 func NewAgentServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) AgentServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
 	return &agentServiceClient{
-		interact: connect.NewClient[v1.PlayerEvent, v1.GameEvent](
-			httpClient,
-			baseURL+AgentServiceInteractProcedure,
-			opts...,
-		),
 		healthCheck: connect.NewClient[v1.HealthCheckRequest, v1.HealthCheckResponse](
 			httpClient,
 			baseURL+AgentServiceHealthCheckProcedure,
 			opts...,
 		),
-		provisionAgent: connect.NewClient[v1.ProvisionAgentRequest, v1.ProvisionAgentResponse](
+		run: connect.NewClient[v1.ClientServerAction, v1.ServerClientEvent](
 			httpClient,
-			baseURL+AgentServiceProvisionAgentProcedure,
+			baseURL+AgentServiceRunProcedure,
 			opts...,
 		),
 	}
@@ -81,14 +73,8 @@ func NewAgentServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 
 // agentServiceClient implements AgentServiceClient.
 type agentServiceClient struct {
-	interact       *connect.Client[v1.PlayerEvent, v1.GameEvent]
-	healthCheck    *connect.Client[v1.HealthCheckRequest, v1.HealthCheckResponse]
-	provisionAgent *connect.Client[v1.ProvisionAgentRequest, v1.ProvisionAgentResponse]
-}
-
-// Interact calls gathering.agents.v1.AgentService.Interact.
-func (c *agentServiceClient) Interact(ctx context.Context) *connect.BidiStreamForClient[v1.PlayerEvent, v1.GameEvent] {
-	return c.interact.CallBidiStream(ctx)
+	healthCheck *connect.Client[v1.HealthCheckRequest, v1.HealthCheckResponse]
+	run         *connect.Client[v1.ClientServerAction, v1.ServerClientEvent]
 }
 
 // HealthCheck calls gathering.agents.v1.AgentService.HealthCheck.
@@ -96,17 +82,17 @@ func (c *agentServiceClient) HealthCheck(ctx context.Context, req *connect.Reque
 	return c.healthCheck.CallUnary(ctx, req)
 }
 
-// ProvisionAgent calls gathering.agents.v1.AgentService.ProvisionAgent.
-func (c *agentServiceClient) ProvisionAgent(ctx context.Context, req *connect.Request[v1.ProvisionAgentRequest]) (*connect.Response[v1.ProvisionAgentResponse], error) {
-	return c.provisionAgent.CallUnary(ctx, req)
+// Run calls gathering.agents.v1.AgentService.Run.
+func (c *agentServiceClient) Run(ctx context.Context) *connect.BidiStreamForClient[v1.ClientServerAction, v1.ServerClientEvent] {
+	return c.run.CallBidiStream(ctx)
 }
 
 // AgentServiceHandler is an implementation of the gathering.agents.v1.AgentService service.
 type AgentServiceHandler interface {
-	// Interact is a bidirectional stream of agent actions and events.
-	Interact(context.Context, *connect.BidiStream[v1.PlayerEvent, v1.GameEvent]) error
+	// HealthCheck is a unary RPC that returns a response when the server is ready.
 	HealthCheck(context.Context, *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.HealthCheckResponse], error)
-	ProvisionAgent(context.Context, *connect.Request[v1.ProvisionAgentRequest]) (*connect.Response[v1.ProvisionAgentResponse], error)
+	// Run is a bidirectional stream of actions and events.
+	Run(context.Context, *connect.BidiStream[v1.ClientServerAction, v1.ServerClientEvent]) error
 }
 
 // NewAgentServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -115,29 +101,22 @@ type AgentServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewAgentServiceHandler(svc AgentServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	agentServiceInteractHandler := connect.NewBidiStreamHandler(
-		AgentServiceInteractProcedure,
-		svc.Interact,
-		opts...,
-	)
 	agentServiceHealthCheckHandler := connect.NewUnaryHandler(
 		AgentServiceHealthCheckProcedure,
 		svc.HealthCheck,
 		opts...,
 	)
-	agentServiceProvisionAgentHandler := connect.NewUnaryHandler(
-		AgentServiceProvisionAgentProcedure,
-		svc.ProvisionAgent,
+	agentServiceRunHandler := connect.NewBidiStreamHandler(
+		AgentServiceRunProcedure,
+		svc.Run,
 		opts...,
 	)
 	return "/gathering.agents.v1.AgentService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case AgentServiceInteractProcedure:
-			agentServiceInteractHandler.ServeHTTP(w, r)
 		case AgentServiceHealthCheckProcedure:
 			agentServiceHealthCheckHandler.ServeHTTP(w, r)
-		case AgentServiceProvisionAgentProcedure:
-			agentServiceProvisionAgentHandler.ServeHTTP(w, r)
+		case AgentServiceRunProcedure:
+			agentServiceRunHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -147,14 +126,10 @@ func NewAgentServiceHandler(svc AgentServiceHandler, opts ...connect.HandlerOpti
 // UnimplementedAgentServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedAgentServiceHandler struct{}
 
-func (UnimplementedAgentServiceHandler) Interact(context.Context, *connect.BidiStream[v1.PlayerEvent, v1.GameEvent]) error {
-	return connect.NewError(connect.CodeUnimplemented, errors.New("gathering.agents.v1.AgentService.Interact is not implemented"))
-}
-
 func (UnimplementedAgentServiceHandler) HealthCheck(context.Context, *connect.Request[v1.HealthCheckRequest]) (*connect.Response[v1.HealthCheckResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("gathering.agents.v1.AgentService.HealthCheck is not implemented"))
 }
 
-func (UnimplementedAgentServiceHandler) ProvisionAgent(context.Context, *connect.Request[v1.ProvisionAgentRequest]) (*connect.Response[v1.ProvisionAgentResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("gathering.agents.v1.AgentService.ProvisionAgent is not implemented"))
+func (UnimplementedAgentServiceHandler) Run(context.Context, *connect.BidiStream[v1.ClientServerAction, v1.ServerClientEvent]) error {
+	return connect.NewError(connect.CodeUnimplemented, errors.New("gathering.agents.v1.AgentService.Run is not implemented"))
 }

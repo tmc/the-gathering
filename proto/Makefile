@@ -8,3 +8,9 @@ venv: .requirements.in
 	./venv/bin/pip-compile .requirements.in
 	./venv/bin/pip install -r .requirements.txt
 
+
+.PHONY: clean
+clean:
+	rm -rf ../ts/packages/the-gathering/gen
+	rm -rf ../py/pygathering/gen
+	rm -rf ../go/gen

@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GameEvent, HealthCheckRequest, HealthCheckResponse, PlayerEvent, ProvisionAgentRequest, ProvisionAgentResponse } from "./agents_pb.js";
+import { ClientServerAction, HealthCheckRequest, HealthCheckResponse, ServerClientEvent } from "./agents_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -13,17 +13,8 @@ export const AgentService = {
   typeName: "gathering.agents.v1.AgentService",
   methods: {
     /**
-     * Interact is a bidirectional stream of agent actions and events.
+     * HealthCheck is a unary RPC that returns a response when the server is ready.
      *
-     * @generated from rpc gathering.agents.v1.AgentService.Interact
-     */
-    interact: {
-      name: "Interact",
-      I: PlayerEvent,
-      O: GameEvent,
-      kind: MethodKind.BiDiStreaming,
-    },
-    /**
      * @generated from rpc gathering.agents.v1.AgentService.HealthCheck
      */
     healthCheck: {
@@ -33,13 +24,15 @@ export const AgentService = {
       kind: MethodKind.Unary,
     },
     /**
-     * @generated from rpc gathering.agents.v1.AgentService.ProvisionAgent
+     * Run is a bidirectional stream of actions and events.
+     *
+     * @generated from rpc gathering.agents.v1.AgentService.Run
      */
-    provisionAgent: {
-      name: "ProvisionAgent",
-      I: ProvisionAgentRequest,
-      O: ProvisionAgentResponse,
-      kind: MethodKind.Unary,
+    run: {
+      name: "Run",
+      I: ClientServerAction,
+      O: ServerClientEvent,
+      kind: MethodKind.BiDiStreaming,
     },
   }
 } as const;

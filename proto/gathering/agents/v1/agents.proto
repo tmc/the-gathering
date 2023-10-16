@@ -3,66 +3,380 @@ syntax = "proto3";
 package gathering.agents.v1;
 
 service AgentService {
-  // Interact is a bidirectional stream of agent actions and events.
-  rpc Interact(stream PlayerEvent) returns (stream GameEvent) {}
+  // HealthCheck is a unary RPC that returns a response when the server is ready.
   rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {}
-  rpc ProvisionAgent(ProvisionAgentRequest) returns (ProvisionAgentResponse) {}
+  // Run is a bidirectional stream of actions and events.
+  rpc Run(stream ClientServerAction) returns (stream ServerClientEvent) {}
 }
 
 message HealthCheckRequest { }
 message HealthCheckResponse { }
 
-enum PlayerType {
-  PLAYER_TYPE_UNSPECIFIED = 0;
-  PLAYER_TYPE_HUMAN = 1;
-  PLAYER_TYPE_BOT = 2;
-}
+// The set of all actions that can be sent from the client to the server.
+message ClientServerAction {
+  oneof action {
+    ClientHeartbeat clientHeartbeat = 1;
 
-message Player {
-  PlayerType type = 1;
-  string id = 2;
-  string name = 3;
+    Move move = 5;
+    Chat chat = 15;
 
-  optional int32 x = 4;
+    SetStatus setStatus = 8;
+    SetEmojiStatus setEmojiStatus = 21;
+    SetEmoteV2 setEmoteV2 = 77;
+    SetTextStatus setTextStatus = 25;
+    SetName setName = 24;
+    SetFocusModeEndTime setFocusModeEndTime = 78; // experimental
+    SetAway setAway = 127;
+    SetCurrentlyEquippedWearables setCurrentlyEquippedWearables = 140;
 
-  optional int32 y = 5;
-}
+    ActivelySpeaking activelySpeaking = 22;
+    Exit exit = 27;
+    Enter enter = 28;
 
-// Discriminated union of all events.
-message GameEvent {
-  oneof event {
-    PlayerEvent player_event = 1;
+    Init init = 33;
+
+    Wave wave = 119;
   }
 }
 
-// Discriminated union of all agent actions.
-message PlayerEvent {
-  Player player = 1;
+// The set of all events that can be sent from the server to the client.
+message ServerClientEvent {
   oneof event {
-    PlayerJoined joined = 2;
-    // A message was sent by an agent.
-    Message message = 3;
-    NearbyPlayers nearby_players = 4;
+    ServerHeartbeat serverHeartbeat = 105;
+
+    PlayerMoves playerMoves = 1;
+    PlayerSetsStatus playerSetsStatus = 5;
+    PlayerChats playerChats = 9;
+    PlayerActivelySpeaks playerActivelySpeaks = 14;
+    PlayerSetsName playerSetsName = 17;
+    PlayerSetsTextStatus playerSetsTextStatus = 18;
+    PlayerSetsEmojiStatus playerSetsEmojiStatus = 19;
+    PlayerExits playerExits = 21;
+    PlayerJoins playerJoins = 81;
+
+    PlayerSetsEmoteV2 playerSetsEmoteV2 = 92;
+    PlayerSetsSubtitle playerSetsSubtitle = 114;
+
+    PlayerWaves playerWaves = 140;
+    PlayerSetsAway playerSetsAway = 150;
+    PlayerSetsLastRaisedHand playerSetsLastRaisedHand = 165;
+    PlayerSetsCurrentlyEquippedWearables playerSetsCurrentlyEquippedWearables = 166;
   }
 }
 
-// PlayerJoined is sent when an agent joins the game.
-message PlayerJoined {}
 
-// NearbyPlayers is a list of players near the agent.
-message NearbyPlayers {
-  repeated Player players = 1;
+message SpriteDirectionEnum {
+  enum ENUM {
+    Stand = 0;
+    Down = 1;
+    DownAlt = 2;
+    Up = 3;
+    UpAlt = 4;
+    Left = 5;
+    LeftAlt = 6;
+    Right = 7;
+    RightAlt = 8;
+    Dance1 = 9;
+    Dance2 = 10;
+    Dance3 = 11;
+    Dance4 = 12;
+  }
 }
 
-// A global chat message sent by an agent.
-message Message {
-  string content = 2;
+message MoveDirectionEnum {
+  enum ENUM {
+    Left = 0;
+    Right = 1;
+    Up = 2;
+    Down = 3;
+    Dance = 4;
+  }
 }
 
-message ProvisionAgentRequest {
-  Player agent = 1;
+message PlayerInitInfo {
+  optional string name = 1;
+  optional uint32 x = 3;
+  optional uint32 y = 4;
+  optional string map = 5;
+  optional string affiliation = 6;
+  optional bool busy = 7;
+  optional string textStatus = 8;
+  optional string emojiStatus = 9;
+  optional DBOutfit currentlyEquippedWearables = 10;
+  optional string focusModeEndTime = 11;
+  optional string itemString = 14;
+  optional bool isNpc = 15;
 }
 
-message ProvisionAgentResponse {
-  Player agent = 1;
+message DBOutfit {
+  string skin = 1;
+  string hair = 2;
+  string facial_hair = 3;
+  string top = 4;
+  string bottom = 5;
+  string shoes = 6;
+  string hat = 7;
+  string glasses = 8;
+  string other = 9;
+  optional string costume = 10;
+  optional string mobility = 11;
+  optional string jacket = 12;
+}
+
+// Server->Client messages.
+
+message ServerHeartbeat {
+}
+
+message Ready {
+  string id = 1;
+}
+
+message PlayerJoins {
+  uint32 encId = 1;
+}
+
+message GotRequestMute {
+  string muterId = 1;
+  bool video = 2;
+}
+
+message PlayerMoves {
+  uint32 encId = 1;
+  // all optional, only send what's changed
+  optional uint32 x = 2;
+  optional uint32 y = 3;
+  optional SpriteDirectionEnum.ENUM direction = 4;
+  optional string mapId = 5;
+  uint32 lastInputId = 6;
+}
+
+message PlayerSetsStatus {
+  uint32 encId = 1;
+  bool busy = 2;
+}
+
+message PlayerSetsAvailability {
+  uint32 encId = 1;
+  string status = 2;
+  optional string statusUpdatedAt = 3;
+  optional string statusEndOption = 4;
+}
+
+message PlayerSpotlights {
+  uint32 encId = 2; // the person who is being spotlit
+  uint32 spotlightedBy = 1; // the person who is doing the spotlighting; legacy \holdover
+  uint32 spotlighted = 3;
+}
+
+message PlayerRings {
+  uint32 encId = 1; // the ringer
+}
+
+message PlayerSetsImagePointer {
+  uint32 encId = 1;
+  string objectId = 2;
+  double x = 3;
+  double y = 4;
+}
+
+message SetScreenPointerServer {
+  uint32 encId = 1;
+  string screenId = 2;
+  double x = 3;
+  double y = 4;
+  string color = 5;
+}
+
+message PlayerChats {
+  string senderId = 1;
+  string recipient = 2;
+  string contents = 3;
+  string senderName = 4;
+  optional Timestamp timestamp = 5; // deprecating (NGN-710)
+  string messageType = 6;
+  double unixTime = 7;
+  optional string id = 8;
+  optional string roomId = 9;
+  optional bool approved = 10;
+  optional string nookId = 11;
+}
+
+message Timestamp {
+  float seconds = 1;
+  float nanoseconds = 2;
+}
+
+message PlayerWaves {
+  uint32 encId = 1;
+  string targetId = 2;
+  bool isReply = 3;
+}
+
+message PlayerActivelySpeaks {
+  uint32 encId = 1;
+  uint32 activelySpeaking = 2;
+}
+
+message PlayerSetsEmoteV2 {
+  uint32 encId = 1;
+  optional string emote = 2;
+  optional uint32 count = 3;
+}
+
+message PlayerSetsLastRaisedHand {
+  uint32 encId = 1;
+  string lastRaisedHand = 2;
+}
+
+message PlayerSetsLastActive {
+  uint32 encId = 1;
+  string lastActive = 2;
+}
+
+message PlayerSetsName {
+  uint32 encId = 1;
+  string name = 2;
+}
+
+message PlayerSetsTextStatus {
+  uint32 encId = 1;
+  string textStatus = 2;
+}
+
+message PlayerSetsEmojiStatus {
+  uint32 encId = 1;
+  string emojiStatus = 2;
+}
+
+message PlayerExits {
+  uint32 encId = 1;
+}
+
+message PlayerSetsCurrentlyEquippedWearables {
+  uint32 encId = 1;
+  DBOutfit currentlyEquippedWearables = 2;
+}
+
+message PlayerShootsConfetti {
+  uint32 encId = 1; // the confetti shooter
+}
+
+message PlayerSetsFollowTarget {
+  uint32 encId = 1;
+  string followTarget = 2;
+}
+
+message PlayerSetsIsNpc {
+  uint32 encId = 1;
+  bool isNpc = 2;
+}
+
+message PlayerSetsSubtitle {
+  uint32 encId = 1;
+  string subtitle = 2;
+}
+
+message PlayerHighFives {
+  uint32 encId = 1;
+  uint32 encIdTarget = 2;
+  optional string emote = 3;
+}
+
+message PlayerSetsAway {
+  uint32 encId = 1;
+  bool away = 2;
+}
+
+
+// Client->Server messages
+
+message ClientHeartbeat { }
+
+message Move {
+  MoveDirectionEnum.ENUM dir = 1;
+  bool stopped = 2;
+  uint32 inputId = 3;
+  optional string targetId = 4;
+}
+
+message SetStatus {
+  bool status = 1;
+  optional string targetId = 2;
+}
+
+message SetCurrentlyEquippedWearables {
+  DBOutfit currentlyEquippedWearables = 1;
+  optional string targetId = 3;
+}
+
+message Chat {
+  string chatRecipient = 1;
+  string contents = 2;
+  repeated string localPlayerIds = 3;
+  string mapId = 4;
+  optional string id = 5;
+  optional string nookId = 6;
+}
+
+message ActivelySpeaking {
+  bool activelySpeaking = 1;
+}
+
+message SetEmoteV2 {
+  optional string emote = 1;
+  optional string targetId = 2;
+  optional uint32 count = 3;
+}
+
+message SetName {
+  string name = 1;
+  optional string targetId = 2;
+}
+
+message SetTextStatus {
+  string textStatus = 1;
+  optional string targetId = 2;
+}
+
+message Exit {}
+
+message Enter {
+  optional PlayerInitInfo info = 1;
+  optional string spawnToken = 2;
+  optional string targetId = 3;
+}
+
+message SetEmojiStatus {
+  string emojiStatus = 1;
+  optional string targetId = 2;
+}
+
+message Init {
+  string spaceId = 1;
+  oneof auth {
+    string token = 2;
+    string apiKey = 3;
+  }
+}
+
+message ChatReply {
+  string senderId = 1;
+  string senderName = 2;
+  string contents = 3;
+}
+
+message Wave {
+  string user = 1;
+  bool isReply = 2;
+}
+
+message SetFocusModeEndTime {
+  string focusModeEndTime = 1;
+  optional string targetId = 2;
+}
+
+message SetAway {
+  bool away = 1;
+  optional string targetId = 2;
 }

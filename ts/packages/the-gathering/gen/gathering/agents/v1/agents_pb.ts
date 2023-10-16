@@ -4,38 +4,12 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message as Message$1, proto3 } from "@bufbuild/protobuf";
-
-/**
- * @generated from enum gathering.agents.v1.PlayerType
- */
-export enum PlayerType {
-  /**
-   * @generated from enum value: PLAYER_TYPE_UNSPECIFIED = 0;
-   */
-  UNSPECIFIED = 0,
-
-  /**
-   * @generated from enum value: PLAYER_TYPE_HUMAN = 1;
-   */
-  HUMAN = 1,
-
-  /**
-   * @generated from enum value: PLAYER_TYPE_BOT = 2;
-   */
-  BOT = 2,
-}
-// Retrieve enum metadata with: proto3.getEnumType(PlayerType)
-proto3.util.setEnumType(PlayerType, "gathering.agents.v1.PlayerType", [
-  { no: 0, name: "PLAYER_TYPE_UNSPECIFIED" },
-  { no: 1, name: "PLAYER_TYPE_HUMAN" },
-  { no: 2, name: "PLAYER_TYPE_BOT" },
-]);
+import { Message, proto3 } from "@bufbuild/protobuf";
 
 /**
  * @generated from message gathering.agents.v1.HealthCheckRequest
  */
-export class HealthCheckRequest extends Message$1<HealthCheckRequest> {
+export class HealthCheckRequest extends Message<HealthCheckRequest> {
   constructor(data?: PartialMessage<HealthCheckRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -66,7 +40,7 @@ export class HealthCheckRequest extends Message$1<HealthCheckRequest> {
 /**
  * @generated from message gathering.agents.v1.HealthCheckResponse
  */
-export class HealthCheckResponse extends Message$1<HealthCheckResponse> {
+export class HealthCheckResponse extends Message<HealthCheckResponse> {
   constructor(data?: PartialMessage<HealthCheckResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -95,360 +69,2825 @@ export class HealthCheckResponse extends Message$1<HealthCheckResponse> {
 }
 
 /**
- * @generated from message gathering.agents.v1.Player
+ * The set of all actions that can be sent from the client to the server.
+ *
+ * @generated from message gathering.agents.v1.ClientServerAction
  */
-export class Player extends Message$1<Player> {
+export class ClientServerAction extends Message<ClientServerAction> {
   /**
-   * @generated from field: gathering.agents.v1.PlayerType type = 1;
+   * @generated from oneof gathering.agents.v1.ClientServerAction.action
    */
-  type = PlayerType.UNSPECIFIED;
+  action: {
+    /**
+     * @generated from field: gathering.agents.v1.ClientHeartbeat clientHeartbeat = 1;
+     */
+    value: ClientHeartbeat;
+    case: "clientHeartbeat";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.Move move = 5;
+     */
+    value: Move;
+    case: "move";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.Chat chat = 15;
+     */
+    value: Chat;
+    case: "chat";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.SetStatus setStatus = 8;
+     */
+    value: SetStatus;
+    case: "setStatus";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.SetEmojiStatus setEmojiStatus = 21;
+     */
+    value: SetEmojiStatus;
+    case: "setEmojiStatus";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.SetEmoteV2 setEmoteV2 = 77;
+     */
+    value: SetEmoteV2;
+    case: "setEmoteV2";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.SetTextStatus setTextStatus = 25;
+     */
+    value: SetTextStatus;
+    case: "setTextStatus";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.SetName setName = 24;
+     */
+    value: SetName;
+    case: "setName";
+  } | {
+    /**
+     * experimental
+     *
+     * @generated from field: gathering.agents.v1.SetFocusModeEndTime setFocusModeEndTime = 78;
+     */
+    value: SetFocusModeEndTime;
+    case: "setFocusModeEndTime";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.SetAway setAway = 127;
+     */
+    value: SetAway;
+    case: "setAway";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.SetCurrentlyEquippedWearables setCurrentlyEquippedWearables = 140;
+     */
+    value: SetCurrentlyEquippedWearables;
+    case: "setCurrentlyEquippedWearables";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.ActivelySpeaking activelySpeaking = 22;
+     */
+    value: ActivelySpeaking;
+    case: "activelySpeaking";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.Exit exit = 27;
+     */
+    value: Exit;
+    case: "exit";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.Enter enter = 28;
+     */
+    value: Enter;
+    case: "enter";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.Init init = 33;
+     */
+    value: Init;
+    case: "init";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.Wave wave = 119;
+     */
+    value: Wave;
+    case: "wave";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<ClientServerAction>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.ClientServerAction";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "clientHeartbeat", kind: "message", T: ClientHeartbeat, oneof: "action" },
+    { no: 5, name: "move", kind: "message", T: Move, oneof: "action" },
+    { no: 15, name: "chat", kind: "message", T: Chat, oneof: "action" },
+    { no: 8, name: "setStatus", kind: "message", T: SetStatus, oneof: "action" },
+    { no: 21, name: "setEmojiStatus", kind: "message", T: SetEmojiStatus, oneof: "action" },
+    { no: 77, name: "setEmoteV2", kind: "message", T: SetEmoteV2, oneof: "action" },
+    { no: 25, name: "setTextStatus", kind: "message", T: SetTextStatus, oneof: "action" },
+    { no: 24, name: "setName", kind: "message", T: SetName, oneof: "action" },
+    { no: 78, name: "setFocusModeEndTime", kind: "message", T: SetFocusModeEndTime, oneof: "action" },
+    { no: 127, name: "setAway", kind: "message", T: SetAway, oneof: "action" },
+    { no: 140, name: "setCurrentlyEquippedWearables", kind: "message", T: SetCurrentlyEquippedWearables, oneof: "action" },
+    { no: 22, name: "activelySpeaking", kind: "message", T: ActivelySpeaking, oneof: "action" },
+    { no: 27, name: "exit", kind: "message", T: Exit, oneof: "action" },
+    { no: 28, name: "enter", kind: "message", T: Enter, oneof: "action" },
+    { no: 33, name: "init", kind: "message", T: Init, oneof: "action" },
+    { no: 119, name: "wave", kind: "message", T: Wave, oneof: "action" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientServerAction {
+    return new ClientServerAction().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientServerAction {
+    return new ClientServerAction().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientServerAction {
+    return new ClientServerAction().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ClientServerAction | PlainMessage<ClientServerAction> | undefined, b: ClientServerAction | PlainMessage<ClientServerAction> | undefined): boolean {
+    return proto3.util.equals(ClientServerAction, a, b);
+  }
+}
+
+/**
+ * The set of all events that can be sent from the server to the client.
+ *
+ * @generated from message gathering.agents.v1.ServerClientEvent
+ */
+export class ServerClientEvent extends Message<ServerClientEvent> {
+  /**
+   * @generated from oneof gathering.agents.v1.ServerClientEvent.event
+   */
+  event: {
+    /**
+     * @generated from field: gathering.agents.v1.ServerHeartbeat serverHeartbeat = 105;
+     */
+    value: ServerHeartbeat;
+    case: "serverHeartbeat";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerMoves playerMoves = 1;
+     */
+    value: PlayerMoves;
+    case: "playerMoves";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerSetsStatus playerSetsStatus = 5;
+     */
+    value: PlayerSetsStatus;
+    case: "playerSetsStatus";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerChats playerChats = 9;
+     */
+    value: PlayerChats;
+    case: "playerChats";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerActivelySpeaks playerActivelySpeaks = 14;
+     */
+    value: PlayerActivelySpeaks;
+    case: "playerActivelySpeaks";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerSetsName playerSetsName = 17;
+     */
+    value: PlayerSetsName;
+    case: "playerSetsName";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerSetsTextStatus playerSetsTextStatus = 18;
+     */
+    value: PlayerSetsTextStatus;
+    case: "playerSetsTextStatus";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerSetsEmojiStatus playerSetsEmojiStatus = 19;
+     */
+    value: PlayerSetsEmojiStatus;
+    case: "playerSetsEmojiStatus";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerExits playerExits = 21;
+     */
+    value: PlayerExits;
+    case: "playerExits";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerJoins playerJoins = 81;
+     */
+    value: PlayerJoins;
+    case: "playerJoins";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerSetsEmoteV2 playerSetsEmoteV2 = 92;
+     */
+    value: PlayerSetsEmoteV2;
+    case: "playerSetsEmoteV2";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerSetsSubtitle playerSetsSubtitle = 114;
+     */
+    value: PlayerSetsSubtitle;
+    case: "playerSetsSubtitle";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerWaves playerWaves = 140;
+     */
+    value: PlayerWaves;
+    case: "playerWaves";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerSetsAway playerSetsAway = 150;
+     */
+    value: PlayerSetsAway;
+    case: "playerSetsAway";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerSetsLastRaisedHand playerSetsLastRaisedHand = 165;
+     */
+    value: PlayerSetsLastRaisedHand;
+    case: "playerSetsLastRaisedHand";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.PlayerSetsCurrentlyEquippedWearables playerSetsCurrentlyEquippedWearables = 166;
+     */
+    value: PlayerSetsCurrentlyEquippedWearables;
+    case: "playerSetsCurrentlyEquippedWearables";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<ServerClientEvent>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.ServerClientEvent";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 105, name: "serverHeartbeat", kind: "message", T: ServerHeartbeat, oneof: "event" },
+    { no: 1, name: "playerMoves", kind: "message", T: PlayerMoves, oneof: "event" },
+    { no: 5, name: "playerSetsStatus", kind: "message", T: PlayerSetsStatus, oneof: "event" },
+    { no: 9, name: "playerChats", kind: "message", T: PlayerChats, oneof: "event" },
+    { no: 14, name: "playerActivelySpeaks", kind: "message", T: PlayerActivelySpeaks, oneof: "event" },
+    { no: 17, name: "playerSetsName", kind: "message", T: PlayerSetsName, oneof: "event" },
+    { no: 18, name: "playerSetsTextStatus", kind: "message", T: PlayerSetsTextStatus, oneof: "event" },
+    { no: 19, name: "playerSetsEmojiStatus", kind: "message", T: PlayerSetsEmojiStatus, oneof: "event" },
+    { no: 21, name: "playerExits", kind: "message", T: PlayerExits, oneof: "event" },
+    { no: 81, name: "playerJoins", kind: "message", T: PlayerJoins, oneof: "event" },
+    { no: 92, name: "playerSetsEmoteV2", kind: "message", T: PlayerSetsEmoteV2, oneof: "event" },
+    { no: 114, name: "playerSetsSubtitle", kind: "message", T: PlayerSetsSubtitle, oneof: "event" },
+    { no: 140, name: "playerWaves", kind: "message", T: PlayerWaves, oneof: "event" },
+    { no: 150, name: "playerSetsAway", kind: "message", T: PlayerSetsAway, oneof: "event" },
+    { no: 165, name: "playerSetsLastRaisedHand", kind: "message", T: PlayerSetsLastRaisedHand, oneof: "event" },
+    { no: 166, name: "playerSetsCurrentlyEquippedWearables", kind: "message", T: PlayerSetsCurrentlyEquippedWearables, oneof: "event" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ServerClientEvent {
+    return new ServerClientEvent().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ServerClientEvent {
+    return new ServerClientEvent().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ServerClientEvent {
+    return new ServerClientEvent().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ServerClientEvent | PlainMessage<ServerClientEvent> | undefined, b: ServerClientEvent | PlainMessage<ServerClientEvent> | undefined): boolean {
+    return proto3.util.equals(ServerClientEvent, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.SpriteDirectionEnum
+ */
+export class SpriteDirectionEnum extends Message<SpriteDirectionEnum> {
+  constructor(data?: PartialMessage<SpriteDirectionEnum>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.SpriteDirectionEnum";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SpriteDirectionEnum {
+    return new SpriteDirectionEnum().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SpriteDirectionEnum {
+    return new SpriteDirectionEnum().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SpriteDirectionEnum {
+    return new SpriteDirectionEnum().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SpriteDirectionEnum | PlainMessage<SpriteDirectionEnum> | undefined, b: SpriteDirectionEnum | PlainMessage<SpriteDirectionEnum> | undefined): boolean {
+    return proto3.util.equals(SpriteDirectionEnum, a, b);
+  }
+}
+
+/**
+ * @generated from enum gathering.agents.v1.SpriteDirectionEnum.ENUM
+ */
+export enum SpriteDirectionEnum_ENUM {
+  /**
+   * @generated from enum value: Stand = 0;
+   */
+  Stand = 0,
 
   /**
-   * @generated from field: string id = 2;
+   * @generated from enum value: Down = 1;
    */
-  id = "";
+  Down = 1,
 
   /**
-   * @generated from field: string name = 3;
+   * @generated from enum value: DownAlt = 2;
    */
-  name = "";
+  DownAlt = 2,
 
   /**
-   * @generated from field: optional int32 x = 4;
+   * @generated from enum value: Up = 3;
+   */
+  Up = 3,
+
+  /**
+   * @generated from enum value: UpAlt = 4;
+   */
+  UpAlt = 4,
+
+  /**
+   * @generated from enum value: Left = 5;
+   */
+  Left = 5,
+
+  /**
+   * @generated from enum value: LeftAlt = 6;
+   */
+  LeftAlt = 6,
+
+  /**
+   * @generated from enum value: Right = 7;
+   */
+  Right = 7,
+
+  /**
+   * @generated from enum value: RightAlt = 8;
+   */
+  RightAlt = 8,
+
+  /**
+   * @generated from enum value: Dance1 = 9;
+   */
+  Dance1 = 9,
+
+  /**
+   * @generated from enum value: Dance2 = 10;
+   */
+  Dance2 = 10,
+
+  /**
+   * @generated from enum value: Dance3 = 11;
+   */
+  Dance3 = 11,
+
+  /**
+   * @generated from enum value: Dance4 = 12;
+   */
+  Dance4 = 12,
+}
+// Retrieve enum metadata with: proto3.getEnumType(SpriteDirectionEnum_ENUM)
+proto3.util.setEnumType(SpriteDirectionEnum_ENUM, "gathering.agents.v1.SpriteDirectionEnum.ENUM", [
+  { no: 0, name: "Stand" },
+  { no: 1, name: "Down" },
+  { no: 2, name: "DownAlt" },
+  { no: 3, name: "Up" },
+  { no: 4, name: "UpAlt" },
+  { no: 5, name: "Left" },
+  { no: 6, name: "LeftAlt" },
+  { no: 7, name: "Right" },
+  { no: 8, name: "RightAlt" },
+  { no: 9, name: "Dance1" },
+  { no: 10, name: "Dance2" },
+  { no: 11, name: "Dance3" },
+  { no: 12, name: "Dance4" },
+]);
+
+/**
+ * @generated from message gathering.agents.v1.MoveDirectionEnum
+ */
+export class MoveDirectionEnum extends Message<MoveDirectionEnum> {
+  constructor(data?: PartialMessage<MoveDirectionEnum>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.MoveDirectionEnum";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MoveDirectionEnum {
+    return new MoveDirectionEnum().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MoveDirectionEnum {
+    return new MoveDirectionEnum().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MoveDirectionEnum {
+    return new MoveDirectionEnum().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MoveDirectionEnum | PlainMessage<MoveDirectionEnum> | undefined, b: MoveDirectionEnum | PlainMessage<MoveDirectionEnum> | undefined): boolean {
+    return proto3.util.equals(MoveDirectionEnum, a, b);
+  }
+}
+
+/**
+ * @generated from enum gathering.agents.v1.MoveDirectionEnum.ENUM
+ */
+export enum MoveDirectionEnum_ENUM {
+  /**
+   * @generated from enum value: Left = 0;
+   */
+  Left = 0,
+
+  /**
+   * @generated from enum value: Right = 1;
+   */
+  Right = 1,
+
+  /**
+   * @generated from enum value: Up = 2;
+   */
+  Up = 2,
+
+  /**
+   * @generated from enum value: Down = 3;
+   */
+  Down = 3,
+
+  /**
+   * @generated from enum value: Dance = 4;
+   */
+  Dance = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(MoveDirectionEnum_ENUM)
+proto3.util.setEnumType(MoveDirectionEnum_ENUM, "gathering.agents.v1.MoveDirectionEnum.ENUM", [
+  { no: 0, name: "Left" },
+  { no: 1, name: "Right" },
+  { no: 2, name: "Up" },
+  { no: 3, name: "Down" },
+  { no: 4, name: "Dance" },
+]);
+
+/**
+ * @generated from message gathering.agents.v1.PlayerInitInfo
+ */
+export class PlayerInitInfo extends Message<PlayerInitInfo> {
+  /**
+   * @generated from field: optional string name = 1;
+   */
+  name?: string;
+
+  /**
+   * @generated from field: optional uint32 x = 3;
    */
   x?: number;
 
   /**
-   * @generated from field: optional int32 y = 5;
+   * @generated from field: optional uint32 y = 4;
    */
   y?: number;
 
-  constructor(data?: PartialMessage<Player>) {
+  /**
+   * @generated from field: optional string map = 5;
+   */
+  map?: string;
+
+  /**
+   * @generated from field: optional string affiliation = 6;
+   */
+  affiliation?: string;
+
+  /**
+   * @generated from field: optional bool busy = 7;
+   */
+  busy?: boolean;
+
+  /**
+   * @generated from field: optional string textStatus = 8;
+   */
+  textStatus?: string;
+
+  /**
+   * @generated from field: optional string emojiStatus = 9;
+   */
+  emojiStatus?: string;
+
+  /**
+   * @generated from field: optional gathering.agents.v1.DBOutfit currentlyEquippedWearables = 10;
+   */
+  currentlyEquippedWearables?: DBOutfit;
+
+  /**
+   * @generated from field: optional string focusModeEndTime = 11;
+   */
+  focusModeEndTime?: string;
+
+  /**
+   * @generated from field: optional string itemString = 14;
+   */
+  itemString?: string;
+
+  /**
+   * @generated from field: optional bool isNpc = 15;
+   */
+  isNpc?: boolean;
+
+  constructor(data?: PartialMessage<PlayerInitInfo>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "gathering.agents.v1.Player";
+  static readonly typeName = "gathering.agents.v1.PlayerInitInfo";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "type", kind: "enum", T: proto3.getEnumType(PlayerType) },
-    { no: 2, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "x", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
-    { no: 5, name: "y", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "x", kind: "scalar", T: 13 /* ScalarType.UINT32 */, opt: true },
+    { no: 4, name: "y", kind: "scalar", T: 13 /* ScalarType.UINT32 */, opt: true },
+    { no: 5, name: "map", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 6, name: "affiliation", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 7, name: "busy", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 8, name: "textStatus", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 9, name: "emojiStatus", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 10, name: "currentlyEquippedWearables", kind: "message", T: DBOutfit, opt: true },
+    { no: 11, name: "focusModeEndTime", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 14, name: "itemString", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 15, name: "isNpc", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Player {
-    return new Player().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerInitInfo {
+    return new PlayerInitInfo().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Player {
-    return new Player().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerInitInfo {
+    return new PlayerInitInfo().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Player {
-    return new Player().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerInitInfo {
+    return new PlayerInitInfo().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Player | PlainMessage<Player> | undefined, b: Player | PlainMessage<Player> | undefined): boolean {
-    return proto3.util.equals(Player, a, b);
+  static equals(a: PlayerInitInfo | PlainMessage<PlayerInitInfo> | undefined, b: PlayerInitInfo | PlainMessage<PlayerInitInfo> | undefined): boolean {
+    return proto3.util.equals(PlayerInitInfo, a, b);
   }
 }
 
 /**
- * Discriminated union of all events.
- *
- * @generated from message gathering.agents.v1.GameEvent
+ * @generated from message gathering.agents.v1.DBOutfit
  */
-export class GameEvent extends Message$1<GameEvent> {
+export class DBOutfit extends Message<DBOutfit> {
   /**
-   * @generated from oneof gathering.agents.v1.GameEvent.event
+   * @generated from field: string skin = 1;
    */
-  event: {
-    /**
-     * @generated from field: gathering.agents.v1.PlayerEvent player_event = 1;
-     */
-    value: PlayerEvent;
-    case: "playerEvent";
-  } | { case: undefined; value?: undefined } = { case: undefined };
+  skin = "";
 
-  constructor(data?: PartialMessage<GameEvent>) {
+  /**
+   * @generated from field: string hair = 2;
+   */
+  hair = "";
+
+  /**
+   * @generated from field: string facial_hair = 3;
+   */
+  facialHair = "";
+
+  /**
+   * @generated from field: string top = 4;
+   */
+  top = "";
+
+  /**
+   * @generated from field: string bottom = 5;
+   */
+  bottom = "";
+
+  /**
+   * @generated from field: string shoes = 6;
+   */
+  shoes = "";
+
+  /**
+   * @generated from field: string hat = 7;
+   */
+  hat = "";
+
+  /**
+   * @generated from field: string glasses = 8;
+   */
+  glasses = "";
+
+  /**
+   * @generated from field: string other = 9;
+   */
+  other = "";
+
+  /**
+   * @generated from field: optional string costume = 10;
+   */
+  costume?: string;
+
+  /**
+   * @generated from field: optional string mobility = 11;
+   */
+  mobility?: string;
+
+  /**
+   * @generated from field: optional string jacket = 12;
+   */
+  jacket?: string;
+
+  constructor(data?: PartialMessage<DBOutfit>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "gathering.agents.v1.GameEvent";
+  static readonly typeName = "gathering.agents.v1.DBOutfit";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "player_event", kind: "message", T: PlayerEvent, oneof: "event" },
+    { no: 1, name: "skin", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "hair", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "facial_hair", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "top", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "bottom", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 6, name: "shoes", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "hat", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 8, name: "glasses", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 9, name: "other", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 10, name: "costume", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 11, name: "mobility", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 12, name: "jacket", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GameEvent {
-    return new GameEvent().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DBOutfit {
+    return new DBOutfit().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GameEvent {
-    return new GameEvent().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DBOutfit {
+    return new DBOutfit().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GameEvent {
-    return new GameEvent().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DBOutfit {
+    return new DBOutfit().fromJsonString(jsonString, options);
   }
 
-  static equals(a: GameEvent | PlainMessage<GameEvent> | undefined, b: GameEvent | PlainMessage<GameEvent> | undefined): boolean {
-    return proto3.util.equals(GameEvent, a, b);
+  static equals(a: DBOutfit | PlainMessage<DBOutfit> | undefined, b: DBOutfit | PlainMessage<DBOutfit> | undefined): boolean {
+    return proto3.util.equals(DBOutfit, a, b);
   }
 }
 
 /**
- * Discriminated union of all agent actions.
- *
- * @generated from message gathering.agents.v1.PlayerEvent
+ * @generated from message gathering.agents.v1.ServerHeartbeat
  */
-export class PlayerEvent extends Message$1<PlayerEvent> {
+export class ServerHeartbeat extends Message<ServerHeartbeat> {
+  constructor(data?: PartialMessage<ServerHeartbeat>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.ServerHeartbeat";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ServerHeartbeat {
+    return new ServerHeartbeat().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ServerHeartbeat {
+    return new ServerHeartbeat().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ServerHeartbeat {
+    return new ServerHeartbeat().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ServerHeartbeat | PlainMessage<ServerHeartbeat> | undefined, b: ServerHeartbeat | PlainMessage<ServerHeartbeat> | undefined): boolean {
+    return proto3.util.equals(ServerHeartbeat, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.Ready
+ */
+export class Ready extends Message<Ready> {
   /**
-   * @generated from field: gathering.agents.v1.Player player = 1;
+   * @generated from field: string id = 1;
    */
-  player?: Player;
+  id = "";
+
+  constructor(data?: PartialMessage<Ready>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.Ready";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Ready {
+    return new Ready().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Ready {
+    return new Ready().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Ready {
+    return new Ready().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Ready | PlainMessage<Ready> | undefined, b: Ready | PlainMessage<Ready> | undefined): boolean {
+    return proto3.util.equals(Ready, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerJoins
+ */
+export class PlayerJoins extends Message<PlayerJoins> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  constructor(data?: PartialMessage<PlayerJoins>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerJoins";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerJoins {
+    return new PlayerJoins().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerJoins {
+    return new PlayerJoins().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerJoins {
+    return new PlayerJoins().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerJoins | PlainMessage<PlayerJoins> | undefined, b: PlayerJoins | PlainMessage<PlayerJoins> | undefined): boolean {
+    return proto3.util.equals(PlayerJoins, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.GotRequestMute
+ */
+export class GotRequestMute extends Message<GotRequestMute> {
+  /**
+   * @generated from field: string muterId = 1;
+   */
+  muterId = "";
 
   /**
-   * @generated from oneof gathering.agents.v1.PlayerEvent.event
+   * @generated from field: bool video = 2;
    */
-  event: {
+  video = false;
+
+  constructor(data?: PartialMessage<GotRequestMute>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.GotRequestMute";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "muterId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "video", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GotRequestMute {
+    return new GotRequestMute().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GotRequestMute {
+    return new GotRequestMute().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GotRequestMute {
+    return new GotRequestMute().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GotRequestMute | PlainMessage<GotRequestMute> | undefined, b: GotRequestMute | PlainMessage<GotRequestMute> | undefined): boolean {
+    return proto3.util.equals(GotRequestMute, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerMoves
+ */
+export class PlayerMoves extends Message<PlayerMoves> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * all optional, only send what's changed
+   *
+   * @generated from field: optional uint32 x = 2;
+   */
+  x?: number;
+
+  /**
+   * @generated from field: optional uint32 y = 3;
+   */
+  y?: number;
+
+  /**
+   * @generated from field: optional gathering.agents.v1.SpriteDirectionEnum.ENUM direction = 4;
+   */
+  direction?: SpriteDirectionEnum_ENUM;
+
+  /**
+   * @generated from field: optional string mapId = 5;
+   */
+  mapId?: string;
+
+  /**
+   * @generated from field: uint32 lastInputId = 6;
+   */
+  lastInputId = 0;
+
+  constructor(data?: PartialMessage<PlayerMoves>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerMoves";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "x", kind: "scalar", T: 13 /* ScalarType.UINT32 */, opt: true },
+    { no: 3, name: "y", kind: "scalar", T: 13 /* ScalarType.UINT32 */, opt: true },
+    { no: 4, name: "direction", kind: "enum", T: proto3.getEnumType(SpriteDirectionEnum_ENUM), opt: true },
+    { no: 5, name: "mapId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 6, name: "lastInputId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerMoves {
+    return new PlayerMoves().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerMoves {
+    return new PlayerMoves().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerMoves {
+    return new PlayerMoves().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerMoves | PlainMessage<PlayerMoves> | undefined, b: PlayerMoves | PlainMessage<PlayerMoves> | undefined): boolean {
+    return proto3.util.equals(PlayerMoves, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsStatus
+ */
+export class PlayerSetsStatus extends Message<PlayerSetsStatus> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: bool busy = 2;
+   */
+  busy = false;
+
+  constructor(data?: PartialMessage<PlayerSetsStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "busy", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsStatus {
+    return new PlayerSetsStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsStatus {
+    return new PlayerSetsStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsStatus {
+    return new PlayerSetsStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsStatus | PlainMessage<PlayerSetsStatus> | undefined, b: PlayerSetsStatus | PlainMessage<PlayerSetsStatus> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsAvailability
+ */
+export class PlayerSetsAvailability extends Message<PlayerSetsAvailability> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string status = 2;
+   */
+  status = "";
+
+  /**
+   * @generated from field: optional string statusUpdatedAt = 3;
+   */
+  statusUpdatedAt?: string;
+
+  /**
+   * @generated from field: optional string statusEndOption = 4;
+   */
+  statusEndOption?: string;
+
+  constructor(data?: PartialMessage<PlayerSetsAvailability>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsAvailability";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "status", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "statusUpdatedAt", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "statusEndOption", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsAvailability {
+    return new PlayerSetsAvailability().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsAvailability {
+    return new PlayerSetsAvailability().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsAvailability {
+    return new PlayerSetsAvailability().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsAvailability | PlainMessage<PlayerSetsAvailability> | undefined, b: PlayerSetsAvailability | PlainMessage<PlayerSetsAvailability> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsAvailability, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSpotlights
+ */
+export class PlayerSpotlights extends Message<PlayerSpotlights> {
+  /**
+   * the person who is being spotlit
+   *
+   * @generated from field: uint32 encId = 2;
+   */
+  encId = 0;
+
+  /**
+   * the person who is doing the spotlighting; legacy \holdover
+   *
+   * @generated from field: uint32 spotlightedBy = 1;
+   */
+  spotlightedBy = 0;
+
+  /**
+   * @generated from field: uint32 spotlighted = 3;
+   */
+  spotlighted = 0;
+
+  constructor(data?: PartialMessage<PlayerSpotlights>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSpotlights";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 2, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 1, name: "spotlightedBy", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "spotlighted", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSpotlights {
+    return new PlayerSpotlights().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSpotlights {
+    return new PlayerSpotlights().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSpotlights {
+    return new PlayerSpotlights().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSpotlights | PlainMessage<PlayerSpotlights> | undefined, b: PlayerSpotlights | PlainMessage<PlayerSpotlights> | undefined): boolean {
+    return proto3.util.equals(PlayerSpotlights, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerRings
+ */
+export class PlayerRings extends Message<PlayerRings> {
+  /**
+   * the ringer
+   *
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  constructor(data?: PartialMessage<PlayerRings>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerRings";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerRings {
+    return new PlayerRings().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerRings {
+    return new PlayerRings().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerRings {
+    return new PlayerRings().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerRings | PlainMessage<PlayerRings> | undefined, b: PlayerRings | PlainMessage<PlayerRings> | undefined): boolean {
+    return proto3.util.equals(PlayerRings, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsImagePointer
+ */
+export class PlayerSetsImagePointer extends Message<PlayerSetsImagePointer> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string objectId = 2;
+   */
+  objectId = "";
+
+  /**
+   * @generated from field: double x = 3;
+   */
+  x = 0;
+
+  /**
+   * @generated from field: double y = 4;
+   */
+  y = 0;
+
+  constructor(data?: PartialMessage<PlayerSetsImagePointer>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsImagePointer";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "objectId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "x", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 4, name: "y", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsImagePointer {
+    return new PlayerSetsImagePointer().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsImagePointer {
+    return new PlayerSetsImagePointer().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsImagePointer {
+    return new PlayerSetsImagePointer().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsImagePointer | PlainMessage<PlayerSetsImagePointer> | undefined, b: PlayerSetsImagePointer | PlainMessage<PlayerSetsImagePointer> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsImagePointer, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.SetScreenPointerServer
+ */
+export class SetScreenPointerServer extends Message<SetScreenPointerServer> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string screenId = 2;
+   */
+  screenId = "";
+
+  /**
+   * @generated from field: double x = 3;
+   */
+  x = 0;
+
+  /**
+   * @generated from field: double y = 4;
+   */
+  y = 0;
+
+  /**
+   * @generated from field: string color = 5;
+   */
+  color = "";
+
+  constructor(data?: PartialMessage<SetScreenPointerServer>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.SetScreenPointerServer";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "screenId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "x", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 4, name: "y", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 5, name: "color", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetScreenPointerServer {
+    return new SetScreenPointerServer().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetScreenPointerServer {
+    return new SetScreenPointerServer().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetScreenPointerServer {
+    return new SetScreenPointerServer().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetScreenPointerServer | PlainMessage<SetScreenPointerServer> | undefined, b: SetScreenPointerServer | PlainMessage<SetScreenPointerServer> | undefined): boolean {
+    return proto3.util.equals(SetScreenPointerServer, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerChats
+ */
+export class PlayerChats extends Message<PlayerChats> {
+  /**
+   * @generated from field: string senderId = 1;
+   */
+  senderId = "";
+
+  /**
+   * @generated from field: string recipient = 2;
+   */
+  recipient = "";
+
+  /**
+   * @generated from field: string contents = 3;
+   */
+  contents = "";
+
+  /**
+   * @generated from field: string senderName = 4;
+   */
+  senderName = "";
+
+  /**
+   * deprecating (NGN-710)
+   *
+   * @generated from field: optional gathering.agents.v1.Timestamp timestamp = 5;
+   */
+  timestamp?: Timestamp;
+
+  /**
+   * @generated from field: string messageType = 6;
+   */
+  messageType = "";
+
+  /**
+   * @generated from field: double unixTime = 7;
+   */
+  unixTime = 0;
+
+  /**
+   * @generated from field: optional string id = 8;
+   */
+  id?: string;
+
+  /**
+   * @generated from field: optional string roomId = 9;
+   */
+  roomId?: string;
+
+  /**
+   * @generated from field: optional bool approved = 10;
+   */
+  approved?: boolean;
+
+  /**
+   * @generated from field: optional string nookId = 11;
+   */
+  nookId?: string;
+
+  constructor(data?: PartialMessage<PlayerChats>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerChats";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "senderId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "recipient", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "contents", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "senderName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "timestamp", kind: "message", T: Timestamp, opt: true },
+    { no: 6, name: "messageType", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 7, name: "unixTime", kind: "scalar", T: 1 /* ScalarType.DOUBLE */ },
+    { no: 8, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 9, name: "roomId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 10, name: "approved", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 11, name: "nookId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerChats {
+    return new PlayerChats().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerChats {
+    return new PlayerChats().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerChats {
+    return new PlayerChats().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerChats | PlainMessage<PlayerChats> | undefined, b: PlayerChats | PlainMessage<PlayerChats> | undefined): boolean {
+    return proto3.util.equals(PlayerChats, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.Timestamp
+ */
+export class Timestamp extends Message<Timestamp> {
+  /**
+   * @generated from field: float seconds = 1;
+   */
+  seconds = 0;
+
+  /**
+   * @generated from field: float nanoseconds = 2;
+   */
+  nanoseconds = 0;
+
+  constructor(data?: PartialMessage<Timestamp>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.Timestamp";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "seconds", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 2, name: "nanoseconds", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Timestamp {
+    return new Timestamp().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Timestamp {
+    return new Timestamp().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Timestamp {
+    return new Timestamp().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Timestamp | PlainMessage<Timestamp> | undefined, b: Timestamp | PlainMessage<Timestamp> | undefined): boolean {
+    return proto3.util.equals(Timestamp, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerWaves
+ */
+export class PlayerWaves extends Message<PlayerWaves> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string targetId = 2;
+   */
+  targetId = "";
+
+  /**
+   * @generated from field: bool isReply = 3;
+   */
+  isReply = false;
+
+  constructor(data?: PartialMessage<PlayerWaves>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerWaves";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "isReply", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerWaves {
+    return new PlayerWaves().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerWaves {
+    return new PlayerWaves().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerWaves {
+    return new PlayerWaves().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerWaves | PlainMessage<PlayerWaves> | undefined, b: PlayerWaves | PlainMessage<PlayerWaves> | undefined): boolean {
+    return proto3.util.equals(PlayerWaves, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerActivelySpeaks
+ */
+export class PlayerActivelySpeaks extends Message<PlayerActivelySpeaks> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: uint32 activelySpeaking = 2;
+   */
+  activelySpeaking = 0;
+
+  constructor(data?: PartialMessage<PlayerActivelySpeaks>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerActivelySpeaks";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "activelySpeaking", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerActivelySpeaks {
+    return new PlayerActivelySpeaks().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerActivelySpeaks {
+    return new PlayerActivelySpeaks().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerActivelySpeaks {
+    return new PlayerActivelySpeaks().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerActivelySpeaks | PlainMessage<PlayerActivelySpeaks> | undefined, b: PlayerActivelySpeaks | PlainMessage<PlayerActivelySpeaks> | undefined): boolean {
+    return proto3.util.equals(PlayerActivelySpeaks, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsEmoteV2
+ */
+export class PlayerSetsEmoteV2 extends Message<PlayerSetsEmoteV2> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: optional string emote = 2;
+   */
+  emote?: string;
+
+  /**
+   * @generated from field: optional uint32 count = 3;
+   */
+  count?: number;
+
+  constructor(data?: PartialMessage<PlayerSetsEmoteV2>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsEmoteV2";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "emote", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "count", kind: "scalar", T: 13 /* ScalarType.UINT32 */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsEmoteV2 {
+    return new PlayerSetsEmoteV2().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsEmoteV2 {
+    return new PlayerSetsEmoteV2().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsEmoteV2 {
+    return new PlayerSetsEmoteV2().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsEmoteV2 | PlainMessage<PlayerSetsEmoteV2> | undefined, b: PlayerSetsEmoteV2 | PlainMessage<PlayerSetsEmoteV2> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsEmoteV2, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsLastRaisedHand
+ */
+export class PlayerSetsLastRaisedHand extends Message<PlayerSetsLastRaisedHand> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string lastRaisedHand = 2;
+   */
+  lastRaisedHand = "";
+
+  constructor(data?: PartialMessage<PlayerSetsLastRaisedHand>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsLastRaisedHand";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "lastRaisedHand", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsLastRaisedHand {
+    return new PlayerSetsLastRaisedHand().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsLastRaisedHand {
+    return new PlayerSetsLastRaisedHand().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsLastRaisedHand {
+    return new PlayerSetsLastRaisedHand().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsLastRaisedHand | PlainMessage<PlayerSetsLastRaisedHand> | undefined, b: PlayerSetsLastRaisedHand | PlainMessage<PlayerSetsLastRaisedHand> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsLastRaisedHand, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsLastActive
+ */
+export class PlayerSetsLastActive extends Message<PlayerSetsLastActive> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string lastActive = 2;
+   */
+  lastActive = "";
+
+  constructor(data?: PartialMessage<PlayerSetsLastActive>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsLastActive";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "lastActive", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsLastActive {
+    return new PlayerSetsLastActive().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsLastActive {
+    return new PlayerSetsLastActive().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsLastActive {
+    return new PlayerSetsLastActive().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsLastActive | PlainMessage<PlayerSetsLastActive> | undefined, b: PlayerSetsLastActive | PlainMessage<PlayerSetsLastActive> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsLastActive, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsName
+ */
+export class PlayerSetsName extends Message<PlayerSetsName> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string name = 2;
+   */
+  name = "";
+
+  constructor(data?: PartialMessage<PlayerSetsName>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsName";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsName {
+    return new PlayerSetsName().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsName {
+    return new PlayerSetsName().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsName {
+    return new PlayerSetsName().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsName | PlainMessage<PlayerSetsName> | undefined, b: PlayerSetsName | PlainMessage<PlayerSetsName> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsName, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsTextStatus
+ */
+export class PlayerSetsTextStatus extends Message<PlayerSetsTextStatus> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string textStatus = 2;
+   */
+  textStatus = "";
+
+  constructor(data?: PartialMessage<PlayerSetsTextStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsTextStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "textStatus", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsTextStatus {
+    return new PlayerSetsTextStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsTextStatus {
+    return new PlayerSetsTextStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsTextStatus {
+    return new PlayerSetsTextStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsTextStatus | PlainMessage<PlayerSetsTextStatus> | undefined, b: PlayerSetsTextStatus | PlainMessage<PlayerSetsTextStatus> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsTextStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsEmojiStatus
+ */
+export class PlayerSetsEmojiStatus extends Message<PlayerSetsEmojiStatus> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string emojiStatus = 2;
+   */
+  emojiStatus = "";
+
+  constructor(data?: PartialMessage<PlayerSetsEmojiStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsEmojiStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "emojiStatus", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsEmojiStatus {
+    return new PlayerSetsEmojiStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsEmojiStatus {
+    return new PlayerSetsEmojiStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsEmojiStatus {
+    return new PlayerSetsEmojiStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsEmojiStatus | PlainMessage<PlayerSetsEmojiStatus> | undefined, b: PlayerSetsEmojiStatus | PlainMessage<PlayerSetsEmojiStatus> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsEmojiStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerExits
+ */
+export class PlayerExits extends Message<PlayerExits> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  constructor(data?: PartialMessage<PlayerExits>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerExits";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerExits {
+    return new PlayerExits().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerExits {
+    return new PlayerExits().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerExits {
+    return new PlayerExits().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerExits | PlainMessage<PlayerExits> | undefined, b: PlayerExits | PlainMessage<PlayerExits> | undefined): boolean {
+    return proto3.util.equals(PlayerExits, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsCurrentlyEquippedWearables
+ */
+export class PlayerSetsCurrentlyEquippedWearables extends Message<PlayerSetsCurrentlyEquippedWearables> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: gathering.agents.v1.DBOutfit currentlyEquippedWearables = 2;
+   */
+  currentlyEquippedWearables?: DBOutfit;
+
+  constructor(data?: PartialMessage<PlayerSetsCurrentlyEquippedWearables>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsCurrentlyEquippedWearables";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "currentlyEquippedWearables", kind: "message", T: DBOutfit },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsCurrentlyEquippedWearables {
+    return new PlayerSetsCurrentlyEquippedWearables().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsCurrentlyEquippedWearables {
+    return new PlayerSetsCurrentlyEquippedWearables().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsCurrentlyEquippedWearables {
+    return new PlayerSetsCurrentlyEquippedWearables().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsCurrentlyEquippedWearables | PlainMessage<PlayerSetsCurrentlyEquippedWearables> | undefined, b: PlayerSetsCurrentlyEquippedWearables | PlainMessage<PlayerSetsCurrentlyEquippedWearables> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsCurrentlyEquippedWearables, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerShootsConfetti
+ */
+export class PlayerShootsConfetti extends Message<PlayerShootsConfetti> {
+  /**
+   * the confetti shooter
+   *
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  constructor(data?: PartialMessage<PlayerShootsConfetti>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerShootsConfetti";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerShootsConfetti {
+    return new PlayerShootsConfetti().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerShootsConfetti {
+    return new PlayerShootsConfetti().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerShootsConfetti {
+    return new PlayerShootsConfetti().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerShootsConfetti | PlainMessage<PlayerShootsConfetti> | undefined, b: PlayerShootsConfetti | PlainMessage<PlayerShootsConfetti> | undefined): boolean {
+    return proto3.util.equals(PlayerShootsConfetti, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsFollowTarget
+ */
+export class PlayerSetsFollowTarget extends Message<PlayerSetsFollowTarget> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string followTarget = 2;
+   */
+  followTarget = "";
+
+  constructor(data?: PartialMessage<PlayerSetsFollowTarget>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsFollowTarget";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "followTarget", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsFollowTarget {
+    return new PlayerSetsFollowTarget().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsFollowTarget {
+    return new PlayerSetsFollowTarget().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsFollowTarget {
+    return new PlayerSetsFollowTarget().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsFollowTarget | PlainMessage<PlayerSetsFollowTarget> | undefined, b: PlayerSetsFollowTarget | PlainMessage<PlayerSetsFollowTarget> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsFollowTarget, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsIsNpc
+ */
+export class PlayerSetsIsNpc extends Message<PlayerSetsIsNpc> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: bool isNpc = 2;
+   */
+  isNpc = false;
+
+  constructor(data?: PartialMessage<PlayerSetsIsNpc>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsIsNpc";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "isNpc", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsIsNpc {
+    return new PlayerSetsIsNpc().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsIsNpc {
+    return new PlayerSetsIsNpc().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsIsNpc {
+    return new PlayerSetsIsNpc().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsIsNpc | PlainMessage<PlayerSetsIsNpc> | undefined, b: PlayerSetsIsNpc | PlainMessage<PlayerSetsIsNpc> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsIsNpc, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsSubtitle
+ */
+export class PlayerSetsSubtitle extends Message<PlayerSetsSubtitle> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: string subtitle = 2;
+   */
+  subtitle = "";
+
+  constructor(data?: PartialMessage<PlayerSetsSubtitle>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsSubtitle";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "subtitle", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsSubtitle {
+    return new PlayerSetsSubtitle().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsSubtitle {
+    return new PlayerSetsSubtitle().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsSubtitle {
+    return new PlayerSetsSubtitle().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsSubtitle | PlainMessage<PlayerSetsSubtitle> | undefined, b: PlayerSetsSubtitle | PlainMessage<PlayerSetsSubtitle> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsSubtitle, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerHighFives
+ */
+export class PlayerHighFives extends Message<PlayerHighFives> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: uint32 encIdTarget = 2;
+   */
+  encIdTarget = 0;
+
+  /**
+   * @generated from field: optional string emote = 3;
+   */
+  emote?: string;
+
+  constructor(data?: PartialMessage<PlayerHighFives>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerHighFives";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "encIdTarget", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "emote", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerHighFives {
+    return new PlayerHighFives().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerHighFives {
+    return new PlayerHighFives().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerHighFives {
+    return new PlayerHighFives().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerHighFives | PlainMessage<PlayerHighFives> | undefined, b: PlayerHighFives | PlainMessage<PlayerHighFives> | undefined): boolean {
+    return proto3.util.equals(PlayerHighFives, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.PlayerSetsAway
+ */
+export class PlayerSetsAway extends Message<PlayerSetsAway> {
+  /**
+   * @generated from field: uint32 encId = 1;
+   */
+  encId = 0;
+
+  /**
+   * @generated from field: bool away = 2;
+   */
+  away = false;
+
+  constructor(data?: PartialMessage<PlayerSetsAway>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.PlayerSetsAway";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "encId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 2, name: "away", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerSetsAway {
+    return new PlayerSetsAway().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerSetsAway {
+    return new PlayerSetsAway().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerSetsAway {
+    return new PlayerSetsAway().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PlayerSetsAway | PlainMessage<PlayerSetsAway> | undefined, b: PlayerSetsAway | PlainMessage<PlayerSetsAway> | undefined): boolean {
+    return proto3.util.equals(PlayerSetsAway, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.ClientHeartbeat
+ */
+export class ClientHeartbeat extends Message<ClientHeartbeat> {
+  constructor(data?: PartialMessage<ClientHeartbeat>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.ClientHeartbeat";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ClientHeartbeat {
+    return new ClientHeartbeat().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ClientHeartbeat {
+    return new ClientHeartbeat().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ClientHeartbeat {
+    return new ClientHeartbeat().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ClientHeartbeat | PlainMessage<ClientHeartbeat> | undefined, b: ClientHeartbeat | PlainMessage<ClientHeartbeat> | undefined): boolean {
+    return proto3.util.equals(ClientHeartbeat, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.Move
+ */
+export class Move extends Message<Move> {
+  /**
+   * @generated from field: gathering.agents.v1.MoveDirectionEnum.ENUM dir = 1;
+   */
+  dir = MoveDirectionEnum_ENUM.Left;
+
+  /**
+   * @generated from field: bool stopped = 2;
+   */
+  stopped = false;
+
+  /**
+   * @generated from field: uint32 inputId = 3;
+   */
+  inputId = 0;
+
+  /**
+   * @generated from field: optional string targetId = 4;
+   */
+  targetId?: string;
+
+  constructor(data?: PartialMessage<Move>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.Move";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "dir", kind: "enum", T: proto3.getEnumType(MoveDirectionEnum_ENUM) },
+    { no: 2, name: "stopped", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "inputId", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Move {
+    return new Move().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Move {
+    return new Move().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Move {
+    return new Move().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Move | PlainMessage<Move> | undefined, b: Move | PlainMessage<Move> | undefined): boolean {
+    return proto3.util.equals(Move, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.SetStatus
+ */
+export class SetStatus extends Message<SetStatus> {
+  /**
+   * @generated from field: bool status = 1;
+   */
+  status = false;
+
+  /**
+   * @generated from field: optional string targetId = 2;
+   */
+  targetId?: string;
+
+  constructor(data?: PartialMessage<SetStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.SetStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "status", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetStatus {
+    return new SetStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetStatus {
+    return new SetStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetStatus {
+    return new SetStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetStatus | PlainMessage<SetStatus> | undefined, b: SetStatus | PlainMessage<SetStatus> | undefined): boolean {
+    return proto3.util.equals(SetStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.SetCurrentlyEquippedWearables
+ */
+export class SetCurrentlyEquippedWearables extends Message<SetCurrentlyEquippedWearables> {
+  /**
+   * @generated from field: gathering.agents.v1.DBOutfit currentlyEquippedWearables = 1;
+   */
+  currentlyEquippedWearables?: DBOutfit;
+
+  /**
+   * @generated from field: optional string targetId = 3;
+   */
+  targetId?: string;
+
+  constructor(data?: PartialMessage<SetCurrentlyEquippedWearables>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.SetCurrentlyEquippedWearables";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "currentlyEquippedWearables", kind: "message", T: DBOutfit },
+    { no: 3, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetCurrentlyEquippedWearables {
+    return new SetCurrentlyEquippedWearables().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetCurrentlyEquippedWearables {
+    return new SetCurrentlyEquippedWearables().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetCurrentlyEquippedWearables {
+    return new SetCurrentlyEquippedWearables().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetCurrentlyEquippedWearables | PlainMessage<SetCurrentlyEquippedWearables> | undefined, b: SetCurrentlyEquippedWearables | PlainMessage<SetCurrentlyEquippedWearables> | undefined): boolean {
+    return proto3.util.equals(SetCurrentlyEquippedWearables, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.Chat
+ */
+export class Chat extends Message<Chat> {
+  /**
+   * @generated from field: string chatRecipient = 1;
+   */
+  chatRecipient = "";
+
+  /**
+   * @generated from field: string contents = 2;
+   */
+  contents = "";
+
+  /**
+   * @generated from field: repeated string localPlayerIds = 3;
+   */
+  localPlayerIds: string[] = [];
+
+  /**
+   * @generated from field: string mapId = 4;
+   */
+  mapId = "";
+
+  /**
+   * @generated from field: optional string id = 5;
+   */
+  id?: string;
+
+  /**
+   * @generated from field: optional string nookId = 6;
+   */
+  nookId?: string;
+
+  constructor(data?: PartialMessage<Chat>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.Chat";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "chatRecipient", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "contents", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "localPlayerIds", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 4, name: "mapId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 5, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 6, name: "nookId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Chat {
+    return new Chat().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Chat {
+    return new Chat().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Chat {
+    return new Chat().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Chat | PlainMessage<Chat> | undefined, b: Chat | PlainMessage<Chat> | undefined): boolean {
+    return proto3.util.equals(Chat, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.ActivelySpeaking
+ */
+export class ActivelySpeaking extends Message<ActivelySpeaking> {
+  /**
+   * @generated from field: bool activelySpeaking = 1;
+   */
+  activelySpeaking = false;
+
+  constructor(data?: PartialMessage<ActivelySpeaking>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.ActivelySpeaking";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "activelySpeaking", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ActivelySpeaking {
+    return new ActivelySpeaking().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ActivelySpeaking {
+    return new ActivelySpeaking().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ActivelySpeaking {
+    return new ActivelySpeaking().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ActivelySpeaking | PlainMessage<ActivelySpeaking> | undefined, b: ActivelySpeaking | PlainMessage<ActivelySpeaking> | undefined): boolean {
+    return proto3.util.equals(ActivelySpeaking, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.SetEmoteV2
+ */
+export class SetEmoteV2 extends Message<SetEmoteV2> {
+  /**
+   * @generated from field: optional string emote = 1;
+   */
+  emote?: string;
+
+  /**
+   * @generated from field: optional string targetId = 2;
+   */
+  targetId?: string;
+
+  /**
+   * @generated from field: optional uint32 count = 3;
+   */
+  count?: number;
+
+  constructor(data?: PartialMessage<SetEmoteV2>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.SetEmoteV2";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "emote", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "count", kind: "scalar", T: 13 /* ScalarType.UINT32 */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetEmoteV2 {
+    return new SetEmoteV2().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetEmoteV2 {
+    return new SetEmoteV2().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetEmoteV2 {
+    return new SetEmoteV2().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetEmoteV2 | PlainMessage<SetEmoteV2> | undefined, b: SetEmoteV2 | PlainMessage<SetEmoteV2> | undefined): boolean {
+    return proto3.util.equals(SetEmoteV2, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.SetName
+ */
+export class SetName extends Message<SetName> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name = "";
+
+  /**
+   * @generated from field: optional string targetId = 2;
+   */
+  targetId?: string;
+
+  constructor(data?: PartialMessage<SetName>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.SetName";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetName {
+    return new SetName().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetName {
+    return new SetName().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetName {
+    return new SetName().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetName | PlainMessage<SetName> | undefined, b: SetName | PlainMessage<SetName> | undefined): boolean {
+    return proto3.util.equals(SetName, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.SetTextStatus
+ */
+export class SetTextStatus extends Message<SetTextStatus> {
+  /**
+   * @generated from field: string textStatus = 1;
+   */
+  textStatus = "";
+
+  /**
+   * @generated from field: optional string targetId = 2;
+   */
+  targetId?: string;
+
+  constructor(data?: PartialMessage<SetTextStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.SetTextStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "textStatus", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetTextStatus {
+    return new SetTextStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetTextStatus {
+    return new SetTextStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetTextStatus {
+    return new SetTextStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetTextStatus | PlainMessage<SetTextStatus> | undefined, b: SetTextStatus | PlainMessage<SetTextStatus> | undefined): boolean {
+    return proto3.util.equals(SetTextStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.Exit
+ */
+export class Exit extends Message<Exit> {
+  constructor(data?: PartialMessage<Exit>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.Exit";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Exit {
+    return new Exit().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Exit {
+    return new Exit().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Exit {
+    return new Exit().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Exit | PlainMessage<Exit> | undefined, b: Exit | PlainMessage<Exit> | undefined): boolean {
+    return proto3.util.equals(Exit, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.Enter
+ */
+export class Enter extends Message<Enter> {
+  /**
+   * @generated from field: optional gathering.agents.v1.PlayerInitInfo info = 1;
+   */
+  info?: PlayerInitInfo;
+
+  /**
+   * @generated from field: optional string spawnToken = 2;
+   */
+  spawnToken?: string;
+
+  /**
+   * @generated from field: optional string targetId = 3;
+   */
+  targetId?: string;
+
+  constructor(data?: PartialMessage<Enter>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.Enter";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "info", kind: "message", T: PlayerInitInfo, opt: true },
+    { no: 2, name: "spawnToken", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Enter {
+    return new Enter().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Enter {
+    return new Enter().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Enter {
+    return new Enter().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Enter | PlainMessage<Enter> | undefined, b: Enter | PlainMessage<Enter> | undefined): boolean {
+    return proto3.util.equals(Enter, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.SetEmojiStatus
+ */
+export class SetEmojiStatus extends Message<SetEmojiStatus> {
+  /**
+   * @generated from field: string emojiStatus = 1;
+   */
+  emojiStatus = "";
+
+  /**
+   * @generated from field: optional string targetId = 2;
+   */
+  targetId?: string;
+
+  constructor(data?: PartialMessage<SetEmojiStatus>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.SetEmojiStatus";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "emojiStatus", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetEmojiStatus {
+    return new SetEmojiStatus().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetEmojiStatus {
+    return new SetEmojiStatus().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetEmojiStatus {
+    return new SetEmojiStatus().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetEmojiStatus | PlainMessage<SetEmojiStatus> | undefined, b: SetEmojiStatus | PlainMessage<SetEmojiStatus> | undefined): boolean {
+    return proto3.util.equals(SetEmojiStatus, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.Init
+ */
+export class Init extends Message<Init> {
+  /**
+   * @generated from field: string spaceId = 1;
+   */
+  spaceId = "";
+
+  /**
+   * @generated from oneof gathering.agents.v1.Init.auth
+   */
+  auth: {
     /**
-     * @generated from field: gathering.agents.v1.PlayerJoined joined = 2;
+     * @generated from field: string token = 2;
      */
-    value: PlayerJoined;
-    case: "joined";
+    value: string;
+    case: "token";
   } | {
     /**
-     * A message was sent by an agent.
-     *
-     * @generated from field: gathering.agents.v1.Message message = 3;
+     * @generated from field: string apiKey = 3;
      */
-    value: Message;
-    case: "message";
-  } | {
-    /**
-     * @generated from field: gathering.agents.v1.NearbyPlayers nearby_players = 4;
-     */
-    value: NearbyPlayers;
-    case: "nearbyPlayers";
+    value: string;
+    case: "apiKey";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
-  constructor(data?: PartialMessage<PlayerEvent>) {
+  constructor(data?: PartialMessage<Init>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "gathering.agents.v1.PlayerEvent";
+  static readonly typeName = "gathering.agents.v1.Init";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "player", kind: "message", T: Player },
-    { no: 2, name: "joined", kind: "message", T: PlayerJoined, oneof: "event" },
-    { no: 3, name: "message", kind: "message", T: Message, oneof: "event" },
-    { no: 4, name: "nearby_players", kind: "message", T: NearbyPlayers, oneof: "event" },
+    { no: 1, name: "spaceId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "token", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "auth" },
+    { no: 3, name: "apiKey", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "auth" },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerEvent {
-    return new PlayerEvent().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Init {
+    return new Init().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerEvent {
-    return new PlayerEvent().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Init {
+    return new Init().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerEvent {
-    return new PlayerEvent().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Init {
+    return new Init().fromJsonString(jsonString, options);
   }
 
-  static equals(a: PlayerEvent | PlainMessage<PlayerEvent> | undefined, b: PlayerEvent | PlainMessage<PlayerEvent> | undefined): boolean {
-    return proto3.util.equals(PlayerEvent, a, b);
+  static equals(a: Init | PlainMessage<Init> | undefined, b: Init | PlainMessage<Init> | undefined): boolean {
+    return proto3.util.equals(Init, a, b);
   }
 }
 
 /**
- * PlayerJoined is sent when an agent joins the game.
- *
- * @generated from message gathering.agents.v1.PlayerJoined
+ * @generated from message gathering.agents.v1.ChatReply
  */
-export class PlayerJoined extends Message$1<PlayerJoined> {
-  constructor(data?: PartialMessage<PlayerJoined>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "gathering.agents.v1.PlayerJoined";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PlayerJoined {
-    return new PlayerJoined().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PlayerJoined {
-    return new PlayerJoined().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PlayerJoined {
-    return new PlayerJoined().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: PlayerJoined | PlainMessage<PlayerJoined> | undefined, b: PlayerJoined | PlainMessage<PlayerJoined> | undefined): boolean {
-    return proto3.util.equals(PlayerJoined, a, b);
-  }
-}
-
-/**
- * NearbyPlayers is a list of players near the agent.
- *
- * @generated from message gathering.agents.v1.NearbyPlayers
- */
-export class NearbyPlayers extends Message$1<NearbyPlayers> {
+export class ChatReply extends Message<ChatReply> {
   /**
-   * @generated from field: repeated gathering.agents.v1.Player players = 1;
+   * @generated from field: string senderId = 1;
    */
-  players: Player[] = [];
+  senderId = "";
 
-  constructor(data?: PartialMessage<NearbyPlayers>) {
+  /**
+   * @generated from field: string senderName = 2;
+   */
+  senderName = "";
+
+  /**
+   * @generated from field: string contents = 3;
+   */
+  contents = "";
+
+  constructor(data?: PartialMessage<ChatReply>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "gathering.agents.v1.NearbyPlayers";
+  static readonly typeName = "gathering.agents.v1.ChatReply";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "players", kind: "message", T: Player, repeated: true },
+    { no: 1, name: "senderId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "senderName", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "contents", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): NearbyPlayers {
-    return new NearbyPlayers().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatReply {
+    return new ChatReply().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): NearbyPlayers {
-    return new NearbyPlayers().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChatReply {
+    return new ChatReply().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): NearbyPlayers {
-    return new NearbyPlayers().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChatReply {
+    return new ChatReply().fromJsonString(jsonString, options);
   }
 
-  static equals(a: NearbyPlayers | PlainMessage<NearbyPlayers> | undefined, b: NearbyPlayers | PlainMessage<NearbyPlayers> | undefined): boolean {
-    return proto3.util.equals(NearbyPlayers, a, b);
+  static equals(a: ChatReply | PlainMessage<ChatReply> | undefined, b: ChatReply | PlainMessage<ChatReply> | undefined): boolean {
+    return proto3.util.equals(ChatReply, a, b);
   }
 }
 
 /**
- * A global chat message sent by an agent.
- *
- * @generated from message gathering.agents.v1.Message
+ * @generated from message gathering.agents.v1.Wave
  */
-export class Message extends Message$1<Message> {
+export class Wave extends Message<Wave> {
   /**
-   * @generated from field: string content = 2;
+   * @generated from field: string user = 1;
    */
-  content = "";
+  user = "";
 
-  constructor(data?: PartialMessage<Message>) {
+  /**
+   * @generated from field: bool isReply = 2;
+   */
+  isReply = false;
+
+  constructor(data?: PartialMessage<Wave>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "gathering.agents.v1.Message";
+  static readonly typeName = "gathering.agents.v1.Wave";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 2, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "user", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "isReply", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Message {
-    return new Message().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Wave {
+    return new Wave().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Message {
-    return new Message().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Wave {
+    return new Wave().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Message {
-    return new Message().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Wave {
+    return new Wave().fromJsonString(jsonString, options);
   }
 
-  static equals(a: Message | PlainMessage<Message> | undefined, b: Message | PlainMessage<Message> | undefined): boolean {
-    return proto3.util.equals(Message, a, b);
+  static equals(a: Wave | PlainMessage<Wave> | undefined, b: Wave | PlainMessage<Wave> | undefined): boolean {
+    return proto3.util.equals(Wave, a, b);
   }
 }
 
 /**
- * @generated from message gathering.agents.v1.ProvisionAgentRequest
+ * @generated from message gathering.agents.v1.SetFocusModeEndTime
  */
-export class ProvisionAgentRequest extends Message$1<ProvisionAgentRequest> {
+export class SetFocusModeEndTime extends Message<SetFocusModeEndTime> {
   /**
-   * @generated from field: gathering.agents.v1.Player agent = 1;
+   * @generated from field: string focusModeEndTime = 1;
    */
-  agent?: Player;
+  focusModeEndTime = "";
 
-  constructor(data?: PartialMessage<ProvisionAgentRequest>) {
+  /**
+   * @generated from field: optional string targetId = 2;
+   */
+  targetId?: string;
+
+  constructor(data?: PartialMessage<SetFocusModeEndTime>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "gathering.agents.v1.ProvisionAgentRequest";
+  static readonly typeName = "gathering.agents.v1.SetFocusModeEndTime";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "agent", kind: "message", T: Player },
+    { no: 1, name: "focusModeEndTime", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProvisionAgentRequest {
-    return new ProvisionAgentRequest().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetFocusModeEndTime {
+    return new SetFocusModeEndTime().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProvisionAgentRequest {
-    return new ProvisionAgentRequest().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetFocusModeEndTime {
+    return new SetFocusModeEndTime().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProvisionAgentRequest {
-    return new ProvisionAgentRequest().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetFocusModeEndTime {
+    return new SetFocusModeEndTime().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ProvisionAgentRequest | PlainMessage<ProvisionAgentRequest> | undefined, b: ProvisionAgentRequest | PlainMessage<ProvisionAgentRequest> | undefined): boolean {
-    return proto3.util.equals(ProvisionAgentRequest, a, b);
+  static equals(a: SetFocusModeEndTime | PlainMessage<SetFocusModeEndTime> | undefined, b: SetFocusModeEndTime | PlainMessage<SetFocusModeEndTime> | undefined): boolean {
+    return proto3.util.equals(SetFocusModeEndTime, a, b);
   }
 }
 
 /**
- * @generated from message gathering.agents.v1.ProvisionAgentResponse
+ * @generated from message gathering.agents.v1.SetAway
  */
-export class ProvisionAgentResponse extends Message$1<ProvisionAgentResponse> {
+export class SetAway extends Message<SetAway> {
   /**
-   * @generated from field: gathering.agents.v1.Player agent = 1;
+   * @generated from field: bool away = 1;
    */
-  agent?: Player;
+  away = false;
 
-  constructor(data?: PartialMessage<ProvisionAgentResponse>) {
+  /**
+   * @generated from field: optional string targetId = 2;
+   */
+  targetId?: string;
+
+  constructor(data?: PartialMessage<SetAway>) {
     super();
     proto3.util.initPartial(data, this);
   }
 
   static readonly runtime: typeof proto3 = proto3;
-  static readonly typeName = "gathering.agents.v1.ProvisionAgentResponse";
+  static readonly typeName = "gathering.agents.v1.SetAway";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "agent", kind: "message", T: Player },
+    { no: 1, name: "away", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 2, name: "targetId", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ProvisionAgentResponse {
-    return new ProvisionAgentResponse().fromBinary(bytes, options);
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetAway {
+    return new SetAway().fromBinary(bytes, options);
   }
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ProvisionAgentResponse {
-    return new ProvisionAgentResponse().fromJson(jsonValue, options);
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetAway {
+    return new SetAway().fromJson(jsonValue, options);
   }
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ProvisionAgentResponse {
-    return new ProvisionAgentResponse().fromJsonString(jsonString, options);
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetAway {
+    return new SetAway().fromJsonString(jsonString, options);
   }
 
-  static equals(a: ProvisionAgentResponse | PlainMessage<ProvisionAgentResponse> | undefined, b: ProvisionAgentResponse | PlainMessage<ProvisionAgentResponse> | undefined): boolean {
-    return proto3.util.equals(ProvisionAgentResponse, a, b);
+  static equals(a: SetAway | PlainMessage<SetAway> | undefined, b: SetAway | PlainMessage<SetAway> | undefined): boolean {
+    return proto3.util.equals(SetAway, a, b);
   }
 }
 
