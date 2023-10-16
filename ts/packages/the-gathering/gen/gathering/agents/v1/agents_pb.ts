@@ -331,6 +331,18 @@ export class ServerClientEvent extends Message<ServerClientEvent> {
      */
     value: PlayerSetsCurrentlyEquippedWearables;
     case: "playerSetsCurrentlyEquippedWearables";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.MapSetDimensions mapSetDimensions = 58;
+     */
+    value: MapSetDimensions;
+    case: "mapSetDimensions";
+  } | {
+    /**
+     * @generated from field: gathering.agents.v1.MapSetCollisionsBits mapSetCollisionsBits = 151;
+     */
+    value: MapSetCollisionsBits;
+    case: "mapSetCollisionsBits";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<ServerClientEvent>) {
@@ -358,6 +370,8 @@ export class ServerClientEvent extends Message<ServerClientEvent> {
     { no: 150, name: "playerSetsAway", kind: "message", T: PlayerSetsAway, oneof: "event" },
     { no: 165, name: "playerSetsLastRaisedHand", kind: "message", T: PlayerSetsLastRaisedHand, oneof: "event" },
     { no: 166, name: "playerSetsCurrentlyEquippedWearables", kind: "message", T: PlayerSetsCurrentlyEquippedWearables, oneof: "event" },
+    { no: 58, name: "mapSetDimensions", kind: "message", T: MapSetDimensions, oneof: "event" },
+    { no: 151, name: "mapSetCollisionsBits", kind: "message", T: MapSetCollisionsBits, oneof: "event" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ServerClientEvent {
@@ -2127,6 +2141,138 @@ export class PlayerSetsAway extends Message<PlayerSetsAway> {
 
   static equals(a: PlayerSetsAway | PlainMessage<PlayerSetsAway> | undefined, b: PlayerSetsAway | PlainMessage<PlayerSetsAway> | undefined): boolean {
     return proto3.util.equals(PlayerSetsAway, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.MapSetDimensions
+ */
+export class MapSetDimensions extends Message<MapSetDimensions> {
+  /**
+   * @generated from field: string mapId = 1;
+   */
+  mapId = "";
+
+  /**
+   * @generated from field: uint32 width = 2;
+   */
+  width = 0;
+
+  /**
+   * @generated from field: uint32 height = 3;
+   */
+  height = 0;
+
+  constructor(data?: PartialMessage<MapSetDimensions>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.MapSetDimensions";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "mapId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "width", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "height", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MapSetDimensions {
+    return new MapSetDimensions().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MapSetDimensions {
+    return new MapSetDimensions().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MapSetDimensions {
+    return new MapSetDimensions().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MapSetDimensions | PlainMessage<MapSetDimensions> | undefined, b: MapSetDimensions | PlainMessage<MapSetDimensions> | undefined): boolean {
+    return proto3.util.equals(MapSetDimensions, a, b);
+  }
+}
+
+/**
+ * @generated from message gathering.agents.v1.MapSetCollisionsBits
+ */
+export class MapSetCollisionsBits extends Message<MapSetCollisionsBits> {
+  /**
+   * @generated from field: string mapId = 1;
+   */
+  mapId = "";
+
+  /**
+   * indicates whether to overwrite previous collision data (i.e. this represents the entire map) or merge
+   *
+   * @generated from field: bool overwrite = 2;
+   */
+  overwrite = false;
+
+  /**
+   * this is the x,y,w,h of the rectangle being updated by this mask
+   *
+   * @generated from field: uint32 x = 3;
+   */
+  x = 0;
+
+  /**
+   * @generated from field: uint32 y = 4;
+   */
+  y = 0;
+
+  /**
+   * @generated from field: uint32 w = 5;
+   */
+  w = 0;
+
+  /**
+   * @generated from field: uint32 h = 6;
+   */
+  h = 0;
+
+  /**
+   * the mask stored as bits where 0 is walkable and 1 is impassable
+   * to read a single bit:
+   *  byteIndex = ((y * w + x) / 8) | 0
+   *  bitIndex  = 1 << ((y * w + x) % 8)
+   *  impassable = (mask[byteIndex] & (1 << bitIndex)) !== 0
+   *
+   * @generated from field: bytes mask = 7;
+   */
+  mask = new Uint8Array(0);
+
+  constructor(data?: PartialMessage<MapSetCollisionsBits>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "gathering.agents.v1.MapSetCollisionsBits";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "mapId", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "overwrite", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "x", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 4, name: "y", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 5, name: "w", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 6, name: "h", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 7, name: "mask", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MapSetCollisionsBits {
+    return new MapSetCollisionsBits().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MapSetCollisionsBits {
+    return new MapSetCollisionsBits().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MapSetCollisionsBits {
+    return new MapSetCollisionsBits().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MapSetCollisionsBits | PlainMessage<MapSetCollisionsBits> | undefined, b: MapSetCollisionsBits | PlainMessage<MapSetCollisionsBits> | undefined): boolean {
+    return proto3.util.equals(MapSetCollisionsBits, a, b);
   }
 }
 

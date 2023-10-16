@@ -62,6 +62,9 @@ message ServerClientEvent {
     PlayerSetsAway playerSetsAway = 150;
     PlayerSetsLastRaisedHand playerSetsLastRaisedHand = 165;
     PlayerSetsCurrentlyEquippedWearables playerSetsCurrentlyEquippedWearables = 166;
+
+    MapSetDimensions mapSetDimensions = 58;
+    MapSetCollisionsBits mapSetCollisionsBits = 151;
   }
 }
 
@@ -289,6 +292,26 @@ message PlayerSetsAway {
   bool away = 2;
 }
 
+message MapSetDimensions {
+  string mapId = 1;
+  uint32 width = 2;
+  uint32 height = 3;
+}
+
+message MapSetCollisionsBits {
+  string mapId = 1;
+  bool overwrite = 2; // indicates whether to overwrite previous collision data (i.e. this represents the entire map) or merge
+  uint32 x = 3; // this is the x,y,w,h of the rectangle being updated by this mask
+  uint32 y = 4;
+  uint32 w = 5;
+  uint32 h = 6;
+  // the mask stored as bits where 0 is walkable and 1 is impassable
+  // to read a single bit:
+  //  byteIndex = ((y * w + x) / 8) | 0
+  //  bitIndex  = 1 << ((y * w + x) % 8)
+  //  impassable = (mask[byteIndex] & (1 << bitIndex)) !== 0
+  bytes mask = 7;
+}
 
 // Client->Server messages
 
@@ -381,3 +404,4 @@ message SetAway {
   bool away = 1;
   optional string targetId = 2;
 }
+

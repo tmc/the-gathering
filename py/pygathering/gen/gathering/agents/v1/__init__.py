@@ -127,6 +127,12 @@ class ServerClientEvent(betterproto.Message):
     player_sets_currently_equipped_wearables: "PlayerSetsCurrentlyEquippedWearables" = (
         betterproto.message_field(166, group="event")
     )
+    map_set_dimensions: "MapSetDimensions" = betterproto.message_field(
+        58, group="event"
+    )
+    map_set_collisions_bits: "MapSetCollisionsBits" = betterproto.message_field(
+        151, group="event"
+    )
 
 
 @dataclass(eq=False, repr=False)
@@ -391,6 +397,29 @@ class PlayerHighFives(betterproto.Message):
 class PlayerSetsAway(betterproto.Message):
     enc_id: int = betterproto.uint32_field(1)
     away: bool = betterproto.bool_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class MapSetDimensions(betterproto.Message):
+    map_id: str = betterproto.string_field(1)
+    width: int = betterproto.uint32_field(2)
+    height: int = betterproto.uint32_field(3)
+
+
+@dataclass(eq=False, repr=False)
+class MapSetCollisionsBits(betterproto.Message):
+    map_id: str = betterproto.string_field(1)
+    overwrite: bool = betterproto.bool_field(2)
+    x: int = betterproto.uint32_field(3)
+    y: int = betterproto.uint32_field(4)
+    w: int = betterproto.uint32_field(5)
+    h: int = betterproto.uint32_field(6)
+    mask: bytes = betterproto.bytes_field(7)
+    """
+    the mask stored as bits where 0 is walkable and 1 is impassable to read a
+    single bit:  byteIndex = ((y * w + x) / 8) | 0  bitIndex  = 1 << ((y * w +
+    x) % 8)  impassable = (mask[byteIndex] & (1 << bitIndex)) !== 0
+    """
 
 
 @dataclass(eq=False, repr=False)
