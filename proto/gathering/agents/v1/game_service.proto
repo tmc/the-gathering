@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package agents.v1;
+package gathering.agents.v1;
 
 service GameService {
   rpc JoinGame(JoinGameRequest) returns (JoinGameResponse) {}

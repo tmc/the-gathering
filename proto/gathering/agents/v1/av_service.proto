@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package agents.v1;
+package gathering.agents.v1;
 
 service AgentAudioVideoService {
   // Speak is a stream of words to be spoken by the agent.

@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"connectrpc.com/connect"
@@ -28,7 +27,6 @@ func (s *AgentServiceServer) Interact(ctx context.Context, stream *connect.BidiS
 			return err
 		}
 		j, _ := json.Marshal(event)
-		fmt.Println("got event:", string(j))
 		if err := stream.Send(&v1.GameEvent{}); err != nil {
 			return err
 		}
