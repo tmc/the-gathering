@@ -28,6 +28,7 @@ game.subscribeToEvent("playerMoves", (data, _context) => {
 // listen for chats and move
 game.subscribeToEvent("playerChats", (data, _context) => {
   console.log('[Event] "playerChats"', data);
+  game.move(MoveDirection.Dance);
   const message = data.playerChats;
   if (message.messageType === "DM") {
     // do something
@@ -48,10 +49,6 @@ game.subscribeToEvent("playerChats", (data, _context) => {
         game.move(MoveDirection.Dance);
         break;
       default:
-        let reply = "what? try sending up/down/left/right";
-        if (message.contents.substring(0, 3).toLowerCase() === "how") {
-          reply = "https://github.com/gathertown/twitch-plays-gather";
-        }
         game.chat(message.senderId, [], "", { contents: reply });
     }
   }
@@ -64,13 +61,13 @@ setTimeout(() => {
     game.engine.sendAction({
       $case: "setName",
       setName: {
-        name: "Twitchy",
+        name: "tmc",
       },
     });
     game.engine.sendAction({
       $case: "setTextStatus",
       setTextStatus: {
-        textStatus: "DM me to move!",
+        textStatus: "Sup guys",
       },
     });
   }
