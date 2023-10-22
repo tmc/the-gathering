@@ -2,7 +2,9 @@ FROM mcr.microsoft.com/playwright:v1.39.0-jammy
 
 # Install dependencies
 RUN apt-get update # Last Modified: 2023-10-14T14:00:05
-RUN apt-get install -y ffmpeg pulseaudio v4l2loopback-dkms v4l2loopback-utils && \
+RUN apt-get install -y ffmpeg pulseaudio && \
+    apt-get clean
+RUN apt-get install -y v4l2loopback-dkms v4l2loopback-utils && \
     apt-get clean
 
 COPY sample.mp4 .
