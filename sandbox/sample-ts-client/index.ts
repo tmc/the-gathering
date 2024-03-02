@@ -49,7 +49,7 @@ game.subscribeToEvent("playerChats", (data, _context) => {
         game.move(MoveDirection.Dance);
         break;
       default:
-        game.chat(message.senderId, [], "", { contents: reply });
+        game.chat(message.senderId, [], "", { contents: 'foobar' });
     }
   }
 });
@@ -61,13 +61,13 @@ setTimeout(() => {
     game.engine.sendAction({
       $case: "setName",
       setName: {
-        name: "tmc",
+        name: "bot1",
       },
     });
     game.engine.sendAction({
       $case: "setTextStatus",
       setTextStatus: {
-        textStatus: "Sup guys",
+        textStatus: "",
       },
     });
   }
